@@ -1,14 +1,14 @@
 /* @refresh reload */
-import { render } from 'solid-js/web'
-import App from './App'
 import './index.css'
 
-const root = document.getElementById('root')
+import { render } from 'solid-js/web'
+import { Router } from '@solidjs/router'
+import App from './App'
 
-if (import.meta.env.DEV && !(root instanceof HTMLElement)) {
-  throw new Error(
-    'Root element not found. Did you forget to add it to your index.html? Or maybe the id attribute got misspelled?',
-  )
-}
+const Root = () => (
+  <Router>
+    <App />
+  </Router>
+)
 
-render(() => <App />, root!)
+render(() => <Root />, document.getElementById('root')!)

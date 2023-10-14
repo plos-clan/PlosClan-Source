@@ -1,34 +1,33 @@
-## Usage
+## PlosClan Source
 
-Those templates dependencies are maintained via [pnpm](https://pnpm.io) via `pnpm up -Lri`.
+在制作逆天奇行种网站的同时学习一些前端知识。
 
-This is the reason you see a `pnpm-lock.yaml`. That being said, any package manager will work. This file can be safely be removed once you clone a template.
+项目使用 TailwindCSS，你可以从 [Tailwind Elements](https://tw-elements.com/) 找到大量的组件模板。
+
+### 项目结构
+
+每个页面已经放在 `pages` 文件夹下：
+
+- `Home.tsx` 首页
+- `Resources.tsx` 资源下载
+- `Words.tsx` 逆天言论
+- `Posts.tsx` 整活贴吧
+- `Projects.tsx` 推荐项目
+- `Dress.tsx` 群主女装
+- `About.tsx` 关于
+
+每个开发者只需编辑相应的页面，前端路由将引导传送之力，在不刷新页面的情况下进行页面切换。
+
+### 如何开始
+
+先安装 `node` 和 `pnpm`，并获取依赖：
 
 ```bash
-$ npm install # or pnpm install or yarn install
+pnpm install
 ```
 
-### Learn more on the [Solid Website](https://solidjs.com) and come chat with us on our [Discord](https://discord.com/invite/solidjs)
+然后启动开发服务器：
 
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm run dev` or `npm start`
-
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br>
-
-### `npm run build`
-
-Builds the app for production to the `dist` folder.<br>
-It correctly bundles Solid in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-## Deployment
-
-You can deploy the `dist` folder to any static host provider (netlify, surge, now, etc.)
+```bash
+pnpm start
+```
