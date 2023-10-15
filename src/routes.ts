@@ -20,6 +20,6 @@ const pageList: PageDefinition[] = [
 export const routes: RouteDefinition[] = pageList.map((page) => {
   return {
     path: page.path,
-    component: lazy(() => import(page.componentPath))
+    component: lazy(() => import( /* @vite-ignore */ page.componentPath))
   }
 })
