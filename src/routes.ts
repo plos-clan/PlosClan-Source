@@ -1,39 +1,25 @@
 import { lazy } from 'solid-js'
 import type { RouteDefinition } from '@solidjs/router'
 
-import Home from './pages/Home'
+type PageDefinition = {
+  path: string,
+  componentPath: string,
+}
 
-export const routes: RouteDefinition[] = [
-  {
-    path: '/',
-    component: Home
-  },
-  {
-    path: '/resources',
-    component: lazy(() => import('./pages/Resources'))
-  },
-  {
-    path: '/words',
-    component: lazy(() => import('./pages/Words'))
-  },
-  {
-    path: '/posts',
-    component: lazy(() => import('./pages/Posts'))
-  },
-  {
-    path: '/projects',
-    component: lazy(() => import('./pages/Projects'))
-  },
-  {
-    path: '/dress',
-    component: lazy(() => import('./pages/Dress'))
-  },
-  {
-    path: '/about',
-    component: lazy(() => import('./pages/About'))
-  },
-  {
-    path: '**',
-    component: lazy(() => import('./pages/404'))
-  }
+const pageList: PageDefinition[] = [
+  { path: '/', componentPath: './pages/Home' },
+  { path: '/resources', componentPath: './pages/Resources' },
+  { path: '/words', componentPath: './pages/Words' },
+  { path: '/posts', componentPath: './pages/Posts' },
+  { path: '/projects', componentPath: './pages/Projects' },
+  { path: '/dress', componentPath: './pages/Dress' },
+  { path: '/about', componentPath: './pages/About' },
+  { path: '**', componentPath: './pages/404' }
 ]
+
+export const routes: RouteDefinition[] = pageList.map((page) => {
+  return {
+    path: page.path,
+    component: lazy(() => import(page.componentPath))
+  }
+})

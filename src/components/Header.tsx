@@ -1,5 +1,7 @@
+import { For } from 'solid-js'
 import { Link } from '@solidjs/router'
-import Logo from '@/assets/logo.jpg'
+import Logo from '../assets/logo.jpg'
+import siteTitleMap from '../assets/title_map.json'
 
 type HeaderLinkProps = {
   href: string
@@ -40,12 +42,9 @@ export default () => (
       <ul
         class="mr-auto flex flex-row"
         data-te-navbar-nav-ref>
-        <HeaderLink href="/resources" title="资源下载" />
-        <HeaderLink href="/words" title="逆天言论" />
-        <HeaderLink href="/posts" title="整活贴吧" />
-        <HeaderLink href="/projects" title="推荐项目" />
-        <HeaderLink href="/dress" title="群主女装" />
-        <HeaderLink href="/about" title="关于" />
+        <For each={siteTitleMap.slice(1, -1)}>
+          {(item) => <HeaderLink href={item.href} title={item.title} />}
+        </For>
       </ul>
     </div>
   </nav>
