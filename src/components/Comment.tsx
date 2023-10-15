@@ -12,7 +12,7 @@ export default () => {
       reactionsEnabled="1"
       emitMetadata="0"
       inputPosition="top"
-      theme="light_protanopia"
+      theme="light"
       lang="zh-CN"
       loading="lazy"
     />
