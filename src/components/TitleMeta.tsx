@@ -1,3 +1,4 @@
+import { createSignal, createEffect } from 'solid-js'
 import { useLocation } from '@solidjs/router'
 import { Title, Meta } from '@solidjs/meta'
 import siteTitleMap from '../assets/title_map.json'
@@ -10,12 +11,16 @@ const titleObject = Object.fromEntries(
 
 export default () => {
   const location = useLocation()
-  const pageTitle = titleObject[location.pathname]
+  const [pageTitle, setPageTitle] = createSignal(titleObject[location.pathname])
+
+  createEffect(() => {
+    setPageTitle(titleObject[location.pathname])
+  })
 
   return (
     <>
-      <Title>{`${pageTitle} | ${websiteName}`}</Title>
-      <Meta property="og:title" content={`${pageTitle}`} />
+      <Title>{`${pageTitle()} | ${websiteName}`}</Title>
+      <Meta property="og:title" content={`${pageTitle()}`} />
     </>
   )
 }

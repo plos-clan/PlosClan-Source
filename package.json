@@ -14,11 +14,12 @@
     "@giscus/solid": "^2.3.0",
     "@solidjs/meta": "^0.28.6",
     "solid-js": "^1.8.1",
-    "tw-elements": "^1.0.0"
+    "tw-elements": "^1.0.0",
+    "vite-plugin-minify": "^1.5.2"
   },
   "devDependencies": {
     "@solidjs/router": "^0.8.3",
-    "@typescript-eslint/parser": "^6.7.5",
+    "@typescript-eslint/parser": "^6.8.0",
     "autoprefixer": "^10.4.16",
     "cssnano": "^6.0.1",
     "eslint": "^8.51.0",
