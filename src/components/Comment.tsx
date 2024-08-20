@@ -3,10 +3,10 @@ import Giscus from '@giscus/solid'
 export default () => {
   return (
     <Giscus
-      repo="plos-clan/plos-clan.github.io"
-      repoId="R_kgDOKgQGDg"
-      category="Announcements"
-      categoryId="DIC_kwDOKgQGDs4CaI0x"
+      repo="plos-clan/PlosClan-Source"
+      repoId="R_kgDOKgRxiA"
+      category="General"
+      categoryId="DIC_kwDOKgRxiM4ChzPi"
       mapping="og:title"
       strict="0"
       reactionsEnabled="1"
