@@ -1,14 +1,411 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
 
-    <script src="/src/index.tsx" type="module"></script>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlosClan Community</title>
+    
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.3/css/bootstrap.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-icons/1.10.4/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" rel="stylesheet"
+        type="text/css">
+    <link href="https://cdn.bootcdn.net/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/@egjs/flicking@4.0.0/dist/flicking.css">
+    <link href="style.css" rel="stylesheet">
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script>
+        ScrollReveal({ reset: true });
+    </script>
+    <style>
+        :root {
+            --vp-c-divider: #2e2e32
+        }
+
+        hr {
+            display: block;
+            margin-block-start: 0.6em;
+            margin-block-end: 0.6em;
+            margin-inline-start: auto;
+            margin-inline-end: auto;
+            unicode-bidi: isolate;
+            overflow: hidden;
+            border-style: inset;
+            border-width: 1px;
+        }
+
+        blockquote {
+            margin: 16px 0;
+            border-left: 2px solid #2e2e32;
+            padding-left: 16px;
+            transition: border-color .5s;
+            color: #2e2e32;
+        }
+    </style>
+
+    <style>
+        .circle1 {
+            z-index: -1;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .circle1:before {
+            content: "";
+            position: relative;
+            display: block;
+            width: 100%;
+            padding-top: 100%;
+        }
+
+        .c1 {
+            width: 40vmax;
+            min-width: 400px;
+            right: 75%;
+            background: #E46865;
+            box-shadow: inset 0 0 0.5em 0 #e77b79, 0 0 0.9em 0 #e77b79;
+        }
+
+        .c4 {
+            width: 60vmax;
+            min-width: 1000px;
+            top: 50%;
+            left: 45%;
+            background: #3076b7;
+            box-shadow: inset 0 0 0.5em 0 var(--clr-neon), 0 0 0.9em 0 var(--clr-neon);
+        }
+    </style>
+</head>
+
+<body translate="no" style="background-color: #0d1117">
+
+    <div class="preloader" style="opacity: 0; display: none;">
+        <div class="preloader-inner">
+            <div class="preloader-icon">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <script>(function () {
+        window.onload = function () {
+            window.setTimeout(fadeout, 500);
+        }
+    
+        function fadeout() {
+            document.querySelector('.preloader').style.opacity = '0';
+            document.querySelector('.preloader').style.display = 'none';
+        }
+    })();
+    </script>
+
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top mask-custom shadow-0" style="width: 100%;">
+        <div class="container">
+            <a class="navbar-brand" href="#!"><span style="color: #2d6a98;">Plos</span><span
+                    style="color: #fff;">Clan</span></a>
+            <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
+                data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-light"
+                            href="https://github.com/orgs/plos-clan/repositories">Repositories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="#!">Reference</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="#Team">Team</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav d-flex flex-row">
+                    <li class="nav-item me-3 me-lg-0">
+                        <a class="nav-link" href="https://github.com/plos-clan">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div style="background-image: url('image/R.jpg');background-size: cover;background-attachment: fixed;width: 100%;">
+        <header style="padding: 11% 0; width: 100%;">
+            <div class="container px-5">
+                <div class="row gx-5 align-items-center justify-content-center">
+                    <div class="my-5 text-center wow animate__ animate__fadeInUp animated"
+                        style="visibility: visible; animation-name: fadeInUp;">
+                        <div class="responsibly">
+                            <h1 style="transform: translate(0px, 0px); opacity: 1; visibility: inherit;"
+                                class="text-start text-light center"><strong class="text-primary">PlosClan</strong>
+                                <span class=" fw-light">Community</span>
+                            </h1>
+                            <p style="transform: translate(0px, 0px); opacity: 1; visibility: inherit; font-family: Consolas,monaco,monospace;"
+                                class="text-start center">
+                                <span id="typed"
+                                    class="fs-5 lead anim-typewriter line-1 fw-normal text-white-50 mb-4"></span>
+                            </p>
+
+                            <div class="d-grid gap-3 d-sm-flex justify-content-sm-start">
+                                <a class="btn text-start text-light btn-lg px-4 neon-button" href="#start">Let's
+                                    GO!</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section class="slice slice-bg" style=" background-size: auto 100%;">
+            <div class="teamwork" style="transform: translate(0px, 0px); opacity: 1; visibility: inherit;">
+                <h2 class="text-center text-light fw-light"> <span>欢迎来到PlosClan社区官方网站</span></h2>
+                <h1 class="text-center text-light">have a drink!</h1>
+            </div>
+            <div class="row mb-5 justify-content-center text-center">
+            </div>
+            <div class="container sizeBig">
+                <div class="row text-light justify-content-center">
+                    <div class="col-sm text-center">
+                        <h3>社区人数</h3>
+                        <p class="fw-light">Community</p>
+                        <h4 class="number">0</h4>
+                    </div>
+                    <div class="vr"></div>
+                    <div class="col-sm text-center">
+                        <h3>最高STAR</h3>
+                        <p class="fw-light">High GitHub Star</p>
+                        <h4 class="number1">0</h4>
+                    </div>
+                    <div class="vr"></div>
+                    <div class="col-sm text-center">
+                        <h3>项目总数</h3>
+                        <p class="fw-light">Project</p>
+                        <h4 class="number2">0</h4>
+                    </div>
+                </div>
+                <div class="row mb-5 justify-content-center text-center">
+                </div>
+                <div class="row mb-5 justify-content-center text-center">
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <section class="py-5">
+        <div class="container">
+            <div class="teamworkX" style="transform: translate(0px, 0px); opacity: 1; visibility: inherit;">
+                <h2 id="start" class="text-center text-light"> <span>PlosClan Admin</span></h2>
+                <h4 class="text-center text-light fw-light">社区活跃的管理员</h1>
+            </div>
+            <div class="row mb-5 justify-content-center text-center">
+            </div>
+            <div id="c1" class="circle1 c1"></div>
+            <div class="circle1 c4"></div>
+            <div
+                class="row gx-5 row-cols-1 row-cols-sm-2 row-cols-xl-4 justify-content-center wow animate__animated animate__fadeInUp">
+                <div class="col mb-5 mb-5 mb-xl-0">
+                    <div class="card text-light mb-3 shadow" style="background-color: #151b23;">
+                        <div class="card-body text-center" style="font-family: Consolas,monaco,monospace;">
+                            <img class="img-fluid rounded-circle" style="width: 50px;height: 50px;"
+                                src="./image/ydm.jpg" alt="..." _mstalt="14352" _msthash="25">
+                            <hr>
+                            <h5 class="card-title">min0911Y</h5>
+                            <p class="card-text text-white-50">Group Host<br>Owner<br>PlantOS Devloper</p>
+                            <a class="nav-link" href="https://github.com/min0911Y">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col mb-5 mb-5 mb-xl-0">
+                    <div class="card text-light mb-3 shadow" style="background-color: #151b23;">
+                        <div class="card-body text-center" style="font-family: Consolas,monaco,monospace;">
+                            <img class="img-fluid rounded-circle" style="width: 50px;height: 50px;" src="./image/jm.jpg"
+                                alt="..." _mstalt="14352" _msthash="25">
+                            <hr>
+                            <h5 class="card-title">copi143</h5>
+                            <p class="card-text text-white-50">Admin<br>Owner<br>Lumos Devloper</p>
+                            <a class="nav-link" href="https://github.com/plos-clan">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col mb-5 mb-5 mb-xl-0">
+                    <div class="card text-light mb-3 shadow" style="background-color: #151b23;">
+                        <div class="card-body text-center" style="font-family: Consolas,monaco,monospace;">
+                            <img class="img-fluid rounded-circle" style="width: 50px;height: 50px;"
+                                src="./image/obt.jpg" alt="..." _mstalt="14352" _msthash="25">
+                            <hr>
+                            <h5 class="card-title">XIAOYI12</h5>
+                            <p class="card-text text-white-50">Admin<br>Owner<br>CoolPotOS Devloper</p>
+                            <a class="nav-link" href="https://github.com/xiaoyi1212">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col mb-5 mb-5 mb-xl-0">
+                    <div class="card text-light mb-3 shadow" style="background-color: #151b23;">
+                        <div class="card-body text-center" style="font-family: Consolas,monaco,monospace;">
+                            <img class="img-fluid rounded-circle" style="width: 50px;height: 50px;"
+                                src="./image/qhjr.jpg" alt="..." _mstalt="14352" _msthash="25">
+                            <hr>
+                            <h5 class="card-title">wenxuanjun</h5>
+                            <p class="card-text text-white-50">Admin<br>Member<br>os-terminal Devloper</p>
+                            <a class="nav-link" href="https://github.com/wenxuanjun">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col mb-5 mb-5 mb-xl-0">
+                    <div class="card text-light mb-3 shadow" style="background-color: #151b23;">
+                        <div class="card-body text-center" style="font-family: Consolas,monaco,monospace;">
+                            <img class="img-fluid rounded-circle" style="width: 50px;height: 50px;"
+                                src="./image/red_b.jpg" alt="..." _mstalt="14352" _msthash="25">
+                            <hr>
+                            <h5 class="card-title">CLimber-Rong</h5>
+                            <p class="card-text text-white-50">Admin<br>Member<br>Stamon Devloper</p>
+                            <a class="nav-link" href="https://github.com/CLimber-Rong">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col mb-5 mb-5 mb-xl-0">
+                    <div class="card text-light mb-3 shadow" style="background-color: #151b23;">
+                        <div class="card-body text-center" style="font-family: Consolas,monaco,monospace;">
+                            <img class="img-fluid rounded-circle" style="width: 50px;height: 50px;"
+                                src="./image/my_child.jpg" alt="..." _mstalt="14352" _msthash="25">
+                            <hr>
+                            <h5 class="card-title">flysong</h5>
+                            <p class="card-text text-white-50">Admin<br>Member<br>or Code boss</p>
+                            <a class="nav-link" href="https://github.com/flysong">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col mb-5 mb-5 mb-xl-0">
+                    <div class="card text-light mb-3 shadow" style="background-color: #151b23;">
+                        <div class="card-body text-center" style="font-family: Consolas,monaco,monospace;">
+                            <img class="img-fluid rounded-circle" style="width: 50px;height: 50px;" src="./image/mc.jpg"
+                                alt="..." _mstalt="14352" _msthash="25">
+                            <hr>
+                            <h5 class="card-title">yywd123</h5>
+                            <p class="card-text text-white-50">Admin<br>Member<br>uefi-plus64 Devloper</p>
+                            <a class="nav-link" href="https://github.com/yywd123">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col mb-5 mb-5 mb-xl-0">
+                    <div class="card text-light mb-3 shadow" style="background-color: #151b23;">
+                        <div class="card-body text-center" style="font-family: Consolas,monaco,monospace;">
+                            <img class="img-fluid rounded-circle" style="width: 50px;height: 50px;"
+                                src="./image/pain.jpg" alt="..." _mstalt="14352" _msthash="25">
+                            <hr>
+                            <h5 class="card-title">Zeng Zhenjia</h5>
+                            <p class="card-text text-white-50">Admin<br>Member<br>racaOS Devloper</p>
+                            <a class="nav-link" href="https://github.com/zzjrabbit">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col mb-5 mb-5 mb-xl-0">
+                    <div class="card text-light mb-3 shadow" style="background-color: #151b23;">
+                        <div class="card-body text-center" style="font-family: Consolas,monaco,monospace;">
+                            <img class="img-fluid rounded-circle" style="width: 50px;height: 50px;"
+                                src="./image/ygl.jpg" alt="..." _mstalt="14352" _msthash="25">
+                            <hr>
+                            <h5 class="card-title">duoduo70</h5>
+                            <p class="card-text text-white-50">Admin<br>Owner<br>PlantOS Contributor</p>
+                            <a class="nav-link" href="https://github.com/duoduo70">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col mb-5 mb-5 mb-xl-0">
+                    <div class="card text-light mb-3 shadow" style="background-color: #151b23;">
+                        <div class="card-body text-center" style="font-family: Consolas,monaco,monospace;">
+                            <img class="img-fluid rounded-circle" style="width: 50px;height: 50px;" src="./image/cs.jpg"
+                                alt="..." _mstalt="14352" _msthash="25">
+                            <hr>
+                            <h5 class="card-title">Sdfzngf</h5>
+                            <p class="card-text text-white-50">Admin<br>Member<br>or Code Boss</p>
+                            <a class="nav-link" href="https://github.com/Sdfzngf">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col mb-5 mb-5 mb-xl-0">
+                    <div class="card text-light mb-3 shadow" style="background-color: #151b23;">
+                        <div class="card-body text-center" style="font-family: Consolas,monaco,monospace;">
+                            <img class="img-fluid rounded-circle" style="width: 50px;height: 50px;"
+                                src="./image/codm.jpg" alt="..." _mstalt="14352" _msthash="25">
+                            <hr>
+                            <h5 class="card-title">SagiriXiguajerry</h5>
+                            <p class="card-text text-white-50">Member<br>Member<br>ktxVulkan Devloper</p>
+                            <a class="nav-link" href="https://github.com/xiguajerry">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5" style="background-color: #0d1117">
+        <div class="container text-light">
+            <blockquote>
+                <p class="text-white-50">这是一个Tip :P</p>
+            </blockquote>
+            <hr>
+            <div id="warn" class="card text-bg-dark shadow border-warning mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Website Warning</h5>
+                    <hr>
+                    <p class="fw-light" style="font-family: Consolas,monaco,monospace;">This page is not available for viewing from the mobile, please switch to the PC.</p>
+                </div>
+            </div>
+            <br>
+            <p class="text-white-50 text-center">Copyright 2025 by plos-clan community.</p>
+        </div>
+    </section>
+    <script src="https://cdn.bootcdn.net/ajax/libs/wow/1.1.2/wow.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.3/js/bootstrap.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/ScrollTrigger.min.js"></script>
+    <script src="https://daybrush.com/scenejs/release/latest/dist/scene.js"></script>
+    <script src="script.js"></script>
+    <script type="text/javascript">
+        new WOW().init();
+    </script>
+    <script>
+        let warn = document.getElementById('warn');
+        if (!(/Mobi|Android|iPhone/i.test(navigator.userAgent))) {
+            warn.classList.add("d-none");
+        }
+        let c1 = document.getElementById("c1");
+        window.addEventListener('scroll', function () {
+            var value = window.scrollY;
+            if (!(value * 1.5 >= window.screenX + 1500)) {
+                c1.style.top = (value * 1.5) + 'px';
+            }
+        })
+    </script>
+</body>
+
 </html>
