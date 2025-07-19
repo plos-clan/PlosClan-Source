@@ -214,27 +214,27 @@
     <div class="mt-8 flex justify-center">
       <nav class="flex items-center space-x-1">
         <button
-          class="rounded-md p-2 text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
+          class="rounded-md px-3 py-1.5 text-sm text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
         >
           &lt;
         </button>
         <button
-          class="rounded-md bg-purple-100 p-2 font-medium text-purple-700 dark:bg-purple-900 dark:text-purple-200"
+          class="rounded-md bg-purple-100 px-3 py-1.5 text-sm text-purple-700 dark:bg-purple-900 dark:text-purple-200"
         >
           1
         </button>
         <button
-          class="rounded-md p-2 text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
+          class="rounded-md px-3 py-1.5 text-sm text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
         >
           2
         </button>
         <button
-          class="rounded-md p-2 text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
+          class="rounded-md px-3 py-1.5 text-sm text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
         >
           3
         </button>
         <button
-          class="rounded-md p-2 text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
+          class="rounded-md px-3 py-1.5 text-sm text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
         >
           &gt;
         </button>
