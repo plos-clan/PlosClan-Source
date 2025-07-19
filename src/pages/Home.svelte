@@ -1,10 +1,12 @@
 <script>
-  import Comment from '../components/Comment.svelte';
+  import Comment from "../components/Comment.svelte";
 
   let count = $state(0);
 </script>
 
-<section class="bg-gray-100 p-8 text-gray-700 dark:bg-gray-800 dark:text-gray-300">
+<section
+  class="bg-gray-100 p-8 text-gray-700 dark:bg-gray-800 dark:text-gray-300"
+>
   <h1 class="text-2xl font-bold">Home</h1>
   <p class="mt-4">这不是首页，这是一个计数器</p>
 
@@ -27,6 +29,4 @@
   </div>
 </section>
 
-<div class="mx-auto my-4 mt-8 max-w-screen-md px-4">
-  <Comment />
-</div>
+<Comment />

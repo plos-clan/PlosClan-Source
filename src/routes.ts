@@ -1,31 +1,31 @@
-import { StatusCode } from "@mateothegreat/svelte5-router"
+import { StatusCode } from '@mateothegreat/svelte5-router'
 
 export const routes = [
   {
     component: async () => import('./pages/Home.svelte')
   },
   {
-    path: "resources",
+    path: 'resources',
     component: async () => import('./pages/Resources.svelte')
   },
   {
-    path: "words",
+    path: 'words',
     component: async () => import('./pages/Words.svelte')
   },
   {
-    path: "posts",
+    path: 'posts',
     component: async () => import('./pages/Posts.svelte')
   },
   {
-    path: "projects",
+    path: 'projects',
     component: async () => import('./pages/Projects.svelte')
   },
   {
-    path: "dress",
+    path: 'dress',
     component: async () => import('./pages/Dress.svelte')
   },
   {
-    path: "about",
+    path: 'about',
     component: async () => import('./pages/About.svelte')
   }
 ]

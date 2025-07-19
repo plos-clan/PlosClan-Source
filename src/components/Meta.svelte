@@ -1,13 +1,13 @@
 <script>
-  import siteTitleMap from '../assets/title_map.json'
+  import siteTitleMap from "../assets/title_map.json";
 
-  const websiteName = 'OS 群网站'
+  const websiteName = "OS 群网站";
 
   const titleObject = Object.fromEntries(
-    siteTitleMap.map(({ href, title }) => [href, title])
-  )
+    siteTitleMap.map(({ href, title }) => [href, title]),
+  );
 
-  $: pageTitle = titleObject[window.location.pathname] || '页面未找到'
+  $: pageTitle = titleObject[window.location.pathname] || "页面未找到";
 </script>
 
 <svelte:head>

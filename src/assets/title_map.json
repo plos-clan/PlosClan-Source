@@ -1,34 +1,34 @@
 [
-    {
-        "href": "/",
-        "title": "首页"
-    },
-    {
-        "href": "/resources",
-        "title": "资源下载"
-    },
-    {
-        "href": "/words",
-        "title": "逆天言论"
-    },
-    {
-        "href": "/posts",
-        "title": "整活贴吧"
-    },
-    {
-        "href": "/projects",
-        "title": "推荐项目"
-    },
-    {
-        "href": "/dress",
-        "title": "群主女装"
-    },
-    {
-        "href": "/about",
-        "title": "关于"
-    },
-    {
-        "href": "/404",
-        "title": "404"
-    }
+  {
+    "href": "/",
+    "title": "首页"
+  },
+  {
+    "href": "/resources",
+    "title": "资源下载"
+  },
+  {
+    "href": "/words",
+    "title": "逆天言论"
+  },
+  {
+    "href": "/posts",
+    "title": "整活贴吧"
+  },
+  {
+    "href": "/projects",
+    "title": "推荐项目"
+  },
+  {
+    "href": "/dress",
+    "title": "群主女装"
+  },
+  {
+    "href": "/about",
+    "title": "关于"
+  },
+  {
+    "href": "/404",
+    "title": "404"
+  }
 ]
