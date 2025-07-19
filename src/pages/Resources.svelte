@@ -78,7 +78,7 @@
 >
   <h1 class="text-2xl font-bold">资源下载</h1>
   <p class="mt-2 text-cyan-700 dark:text-cyan-200">
-    这里收集了各种与低级编程相关的资源，包括系统开发、语言实现等各个方面。
+    这里收集了各种与编程相关的资源，包括系统开发、语言实现等各个方面。
   </p>
 
   <div
@@ -170,7 +170,7 @@
                   <div class="text-sm text-gray-500 dark:text-gray-500">
                     <span>大小: {resource.fileSize}</span>
                     <span class="mx-2">•</span>
-                    <span>添加日期: {resource.dateAdded}</span>
+                    <span>日期: {resource.dateAdded}</span>
                   </div>
 
                   <a

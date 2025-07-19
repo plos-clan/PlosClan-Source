@@ -83,7 +83,7 @@
 >
   <h1 class="text-2xl font-bold">整活贴吧</h1>
   <p class="mt-2 text-purple-700 dark:text-purple-200">
-    这里是我们交流和分享低级编程经验、心得和问题的地方。
+    这里是我们交流和分享编程经验、心得和问题的地方。
   </p>
 
   <!-- Filter, search and sort -->
