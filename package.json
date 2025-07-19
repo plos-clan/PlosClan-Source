@@ -1,35 +1,23 @@
 {
   "name": "plosclan-source",
   "version": "0.0.0",
+  "private": true,
+  "type": "module",
   "description": "OS group website, used for trolling",
   "scripts": {
-    "start": "vite",
-    "dev": "vite",
-    "build": "vite build",
-    "serve": "vite preview",
-    "lint": "eslint 'src/**/*.{ts,tsx}'",
-    "lint:fix": "eslint 'src/**/*.{ts,tsx}' --fix"
+    "dev": "rsbuild dev",
+    "build": "rsbuild build",
+    "preview": "rsbuild preview"
   },
   "dependencies": {
-    "@giscus/solid": "^2.3.0",
-    "@solidjs/meta": "^0.28.6",
-    "solid-js": "^1.8.1",
-    "tw-elements": "^1.0.0",
-    "vite-plugin-minify": "^1.5.2"
+    "svelte": "^5.35.2"
   },
   "devDependencies": {
-    "@solidjs/router": "^0.8.3",
-    "@typescript-eslint/parser": "^6.8.0",
-    "autoprefixer": "^10.4.16",
-    "cssnano": "^6.0.1",
-    "eslint": "^8.51.0",
-    "eslint-plugin-solid": "^0.13.0",
-    "eslint-plugin-tailwindcss": "^3.13.0",
-    "postcss": "^8.4.31",
-    "solid-devtools": "^0.27.7",
-    "tailwindcss": "^3.3.3",
-    "typescript": "^5.2.2",
-    "vite": "^4.4.11",
-    "vite-plugin-solid": "^2.7.1"
+    "@biomejs/biome": "2.1.1",
+    "@giscus/svelte": "^3.1.0",
+    "@mateothegreat/svelte5-router": "^2.16.7",
+    "@rsbuild/core": "1.4.7",
+    "@rsbuild/plugin-svelte": "1.0.10",
+    "typescript": "5.8.3"
   }
 }

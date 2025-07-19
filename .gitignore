@@ -1,12 +1,16 @@
-# Dependencies
-/node_modules
-
-# Production
-/dist
-
-# Misc
+# Local
 .DS_Store
+*.local
+*.log*
 
-# IDEs and editors
-/.idea
-/.vscode
+# Dist
+node_modules
+dist/
+
+# Profile
+.rspack-profile-*/
+
+# IDE
+.vscode/*
+!.vscode/extensions.json
+.idea

@@ -1,37 +1,39 @@
-import { lazy } from 'solid-js'
-import type { RouteDefinition } from '@solidjs/router'
+import { StatusCode } from "@mateothegreat/svelte5-router"
 
-export const routes: RouteDefinition[] = [
+export const routes = [
   {
-    path: '/',
-    component: lazy(() => import('./pages/Home'))
+    component: async () => import('./pages/Home.svelte')
   },
   {
-    path: '/resources',
-    component: lazy(() => import('./pages/Resources'))
+    path: "resources",
+    component: async () => import('./pages/Resources.svelte')
   },
   {
-    path: '/words',
-    component: lazy(() => import('./pages/Words'))
+    path: "words",
+    component: async () => import('./pages/Words.svelte')
   },
   {
-    path: '/posts',
-    component: lazy(() => import('./pages/Posts'))
+    path: "posts",
+    component: async () => import('./pages/Posts.svelte')
   },
   {
-    path: '/projects',
-    component: lazy(() => import('./pages/Projects'))
+    path: "projects",
+    component: async () => import('./pages/Projects.svelte')
   },
   {
-    path: '/dress',
-    component: lazy(() => import('./pages/Dress'))
+    path: "dress",
+    component: async () => import('./pages/Dress.svelte')
   },
   {
-    path: '/about',
-    component: lazy(() => import('./pages/About'))
-  },
-  {
-    path: '**',
-    component: lazy(() => import('./pages/404'))
+    path: "about",
+    component: async () => import('./pages/About.svelte')
   }
 ]
+
+export const routerConfig = {
+  statuses: {
+    [StatusCode.NotFound]: () => ({
+      component: async () => import('./pages/404.svelte')
+    })
+  }
+}
