@@ -2,8 +2,16 @@
   import Comment from "../components/Comment.svelte";
 
   const quotes = [
-    {
+      {
       id: 1,
+      content: "屁股撅起来",
+      author: "小严awa",
+      category: "general",
+      date: "2025/7/15",
+      likes: 514,
+    },
+    {
+      id: 2,
       content: "C++ is a son of a bitch",
       author: "UEFIer",
       category: "language",
@@ -11,7 +19,7 @@
       likes: 27,
     },
     {
-      id: 2,
+      id: 3,
       content: "rust看着头大，c++还能看懂一点",
       author: "唐",
       category: "bios",
@@ -19,7 +27,7 @@
       likes: 35,
     },
     {
-      id: 3,
+      id: 4,
       content: "他母的我tmd根本就不会c和c加加呀。",
       author: "不知道怎么取名的人",
       category: "kernel",
@@ -27,7 +35,7 @@
       likes: 42,
     },
     {
-      id: 4,
+      id: 5,
       content: "你C++用来开发什么，好强",
       author: "にゃんと！花火.dllのあおぞらβ诗",
       category: "vm",
@@ -35,7 +43,7 @@
       likes: 19,
     },
     {
-      id: 5,
+      id: 6,
       content: "C++标准是哪个傻逼指定的",
       author: "朝人の国企🐟",
       category: "general",
@@ -43,7 +51,7 @@
       likes: 31,
     },
     {
-      id: 6,
+      id: 7,
       content: "@Linuxer byd我中考英语考148我吃屎号码",
       author: "群主",
       category: "general",
