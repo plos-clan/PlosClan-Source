@@ -105,7 +105,7 @@
 >
   <h1 class="text-2xl font-bold">逆天言论</h1>
   <p class="mt-2 text-amber-700 dark:text-amber-200">
-    收集了我们在低级编程和系统开发过程中的各种有趣、离谱或发人深省的言论。
+    收集了我们在编程和开发过程中的各种有趣、离谱或发人深省的言论。
   </p>
 
   <!-- Filter, search and sort -->
