@@ -1,5 +1,6 @@
 <script lang="ts">
   import Giscus from '@giscus/svelte'
+	import { mode } from "mode-watcher"
 </script>
 
 <Giscus
@@ -12,7 +13,7 @@
   reactionsEnabled="1"
   emitMetadata="0"
   inputPosition="top"
-  theme="light"
+  theme={mode.current === 'dark' ? 'noborder_gray' : 'light_tritanopia'}
   lang="zh-CN"
   loading="lazy"
 />

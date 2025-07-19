@@ -8,13 +8,13 @@
 
 每个页面已经放在 `pages` 文件夹下：
 
-- `Home.tsx` 首页
-- `Resources.tsx` 资源下载
-- `Words.tsx` 逆天言论
-- `Posts.tsx` 整活贴吧
-- `Projects.tsx` 推荐项目
-- `Dress.tsx` 群主女装
-- `About.tsx` 关于
+- `Home.svelte` 首页
+- `Resources.svelte` 资源下载
+- `Words.svelte` 逆天言论
+- `Posts.svelte` 整活贴吧
+- `Projects.svelte` 推荐项目
+- `Dress.svelte` 群主女装
+- `About.svelte` 关于
 
 每个开发者只需编辑相应的页面，前端路由将引导传送之力，在不刷新页面的情况下进行页面切换。
 
@@ -23,11 +23,11 @@
 先安装 `node` 和 `pnpm`，并获取依赖：
 
 ```bash
-pnpm install
+bun install
 ```
 
 然后启动开发服务器：
 
 ```bash
-pnpm start
+bun run dev
 ```

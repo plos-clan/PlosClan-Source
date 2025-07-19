@@ -1,5 +1,4 @@
 <script>
-  import { location } from 'svelte-spa-router'
   import siteTitleMap from '../assets/title_map.json'
 
   const websiteName = 'OS 群网站'
@@ -8,7 +7,7 @@
     siteTitleMap.map(({ href, title }) => [href, title])
   )
 
-  $: pageTitle = titleObject[$location] || '页面未找到'
+  $: pageTitle = titleObject[window.location.pathname] || '页面未找到'
 </script>
 
 <svelte:head>
