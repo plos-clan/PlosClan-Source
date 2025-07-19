@@ -44,11 +44,11 @@
     },
     {
       id: 6,
-      content: "我们不是在写bug，我们是在创造未记录的特性。",
+      content: "@Linuxer byd我中考英语考148我吃屎号码",
       author: "群主",
       category: "general",
-      date: "2025-06-15",
-      likes: 56,
+      date: "2025-05-08",
+      likes: 16,
     },
   ];
 
@@ -181,10 +181,10 @@
 
           <div class="mt-4 flex flex-wrap items-center justify-between gap-2">
             <div>
-              <span class="font-medium text-gray-800 dark:text-gray-200"
+              <span class="font-medium text-gray-500 dark:text-gray-300"
                 >— {quote.author}</span
               >
-              <span class="ml-2 text-sm text-gray-500 dark:text-gray-400"
+              <span class="ml-2 text-sm text-gray-400 dark:text-gray-400"
                 >{quote.date}</span
               >
               <span

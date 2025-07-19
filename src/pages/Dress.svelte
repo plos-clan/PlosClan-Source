@@ -103,7 +103,7 @@
 </script>
 
 <section
-  class="bg-rose-50 p-8 text-gray-700 dark:bg-rose-900 dark:text-rose-50"
+  class="bg-rose-100 p-8 text-gray-700 dark:bg-rose-900 dark:text-rose-50"
 >
   <h1 class="text-2xl font-bold">群主女装</h1>
   <p class="mt-2 text-rose-700 dark:text-rose-200">
