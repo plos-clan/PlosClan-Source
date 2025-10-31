@@ -1,76 +1,76 @@
 <script>
-  import Comment from "../components/Comment.svelte";
+import Comment from "../components/Comment.svelte";
 
-  // Sample resources data structure - to be replaced with actual data
-  const resourceCategories = [
-    {
-      id: 1,
-      name: "操作系统",
-      description: "内核、操作系统和BIOS开发的资源",
-      resources: [
-        {
-          id: 101,
-          title: "NVM Express Base Specification",
-          description: "从官网扒下来的NVMe文档，想做NVMe驱动的看这个",
-          fileSize: "4.2 MB",
-          downloadUrl: "#",
-          dateAdded: "2024-10-15",
-        },
-        {
-          id: 102,
-          title: "Rust 嵌入式开发教程",
-          description: "使用Rust进行裸机编程和内核开发的入门指南",
-          fileSize: "2.8 MB",
-          downloadUrl: "#",
-          dateAdded: "2025-04-02",
-        },
-      ],
-    },
-    {
-      id: 2,
-      name: "编译原理",
-      description: "构建自己的编程语言和编译器的资源",
-      resources: [
-        {
-          id: 201,
-          title: "龙书",
-          description: "没什么好说的，史😋",
-          fileSize: "1.5 MB",
-          downloadUrl: "#",
-          dateAdded: "2024-09-20",
-        },
-      ],
-    },
-  ];
+// Sample resources data structure - to be replaced with actual data
+const resourceCategories = [
+  {
+    id: 1,
+    name: "操作系统",
+    description: "内核、操作系统和BIOS开发的资源",
+    resources: [
+      {
+        id: 101,
+        title: "NVM Express Base Specification",
+        description: "从官网扒下来的NVMe文档，想做NVMe驱动的看这个",
+        fileSize: "4.2 MB",
+        downloadUrl: "#",
+        dateAdded: "2024-10-15",
+      },
+      {
+        id: 102,
+        title: "Rust 嵌入式开发教程",
+        description: "使用Rust进行裸机编程和内核开发的入门指南",
+        fileSize: "2.8 MB",
+        downloadUrl: "#",
+        dateAdded: "2025-04-02",
+      },
+    ],
+  },
+  {
+    id: 2,
+    name: "编译原理",
+    description: "构建自己的编程语言和编译器的资源",
+    resources: [
+      {
+        id: 201,
+        title: "龙书",
+        description: "没什么好说的，史😋",
+        fileSize: "1.5 MB",
+        downloadUrl: "#",
+        dateAdded: "2024-09-20",
+      },
+    ],
+  },
+];
 
-  // State variables
-  let searchQuery = "";
-  let activeCategory = null;
+// State variables
+let searchQuery = "";
+let activeCategory = null;
 
-  const handleSearchInput = (event) => (searchQuery = event.target.value);
-  const handleClearSearch = () => (searchQuery = "");
-  const handleCategoryClick = (id) =>
-    (activeCategory = activeCategory === id ? null : id);
+const handleSearchInput = (event) => (searchQuery = event.target.value);
+const handleClearSearch = () => (searchQuery = "");
+const handleCategoryClick = (id) =>
+  (activeCategory = activeCategory === id ? null : id);
 
-  $: filteredCategories = resourceCategories
-    .map((category) => {
-      if (activeCategory !== null && category.id !== activeCategory) {
-        return { ...category, resources: [] };
-      }
+$: filteredCategories = resourceCategories
+  .map((category) => {
+    if (activeCategory !== null && category.id !== activeCategory) {
+      return { ...category, resources: [] };
+    }
 
-      const filteredResources = category.resources.filter((resource) => {
-        if (searchQuery === "") return true;
-        return (
-          resource.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          resource.description.toLowerCase().includes(searchQuery.toLowerCase())
-        );
-      });
+    const filteredResources = category.resources.filter((resource) => {
+      if (searchQuery === "") return true;
+      return (
+        resource.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        resource.description.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    });
 
-      return { ...category, resources: filteredResources };
-    })
-    .filter(
-      (category) => category.resources.length > 0 || activeCategory === null,
-    );
+    return { ...category, resources: filteredResources };
+  })
+  .filter(
+    (category) => category.resources.length > 0 || activeCategory === null,
+  );
 </script>
 
 <section
@@ -84,7 +84,7 @@
   <div
     class="mt-6 flex flex-col space-y-4 sm:flex-row sm:items-center sm:space-x-4 sm:space-y-0"
   >
-    <div class="flex-grow z-10">
+    <div class="grow z-10">
       <div class="relative inline-block w-full sm:max-w-96">
         <input
           type="text"
@@ -132,7 +132,7 @@
   </div>
 </section>
 
-<div class="mx-auto my-8 max-w-screen-lg px-4">
+<div class="mx-auto my-8 max-w-5xl px-4">
   {#if filteredCategories.length === 0}
     <div class="rounded-lg bg-gray-100 p-8 text-center dark:bg-gray-800">
       <p class="text-lg text-gray-600 dark:text-gray-400">

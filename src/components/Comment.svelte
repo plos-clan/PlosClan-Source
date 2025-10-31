@@ -1,6 +1,6 @@
 <script lang="ts">
-  import Giscus from "@giscus/svelte";
-  import { mode } from "mode-watcher";
+import Giscus from "@giscus/svelte";
+import { mode } from "mode-watcher";
 </script>
 
 <div class="mx-auto my-4 mt-12 max-w-screen-md px-4">

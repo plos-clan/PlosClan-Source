@@ -1,103 +1,103 @@
 <script>
-  import Comment from "../components/Comment.svelte";
+import Comment from "../components/Comment.svelte";
 
-  const quotes = [
-    {
-      id: 1,
-      content: "C++ is a son of a bitch",
-      author: "UEFIer",
-      category: "language",
-      date: "2024-09-18",
-      likes: 27,
-    },
-    {
-      id: 2,
-      content: "rust看着头大，c++还能看懂一点",
-      author: "唐",
-      category: "bios",
-      date: "2024-10-02",
-      likes: 35,
-    },
-    {
-      id: 3,
-      content: "他母的我tmd根本就不会c和c加加呀。",
-      author: "不知道怎么取名的人",
-      category: "kernel",
-      date: "2024-11-05",
-      likes: 42,
-    },
-    {
-      id: 4,
-      content: "你C++用来开发什么，好强",
-      author: "にゃんと！花火.dllのあおぞらβ诗",
-      category: "vm",
-      date: "2024-12-22",
-      likes: 19,
-    },
-    {
-      id: 5,
-      content: "C++标准是哪个傻逼指定的",
-      author: "朝人の国企🐟",
-      category: "general",
-      date: "2025-03-30",
-      likes: 31,
-    },
-    {
-      id: 6,
-      content: "@Linuxer byd我中考英语考148我吃屎号码",
-      author: "群主",
-      category: "general",
-      date: "2025-05-08",
-      likes: 16,
-    },
-  ];
+const quotes = [
+  {
+    id: 1,
+    content: "C++ is a son of a bitch",
+    author: "UEFIer",
+    category: "language",
+    date: "2024-09-18",
+    likes: 27,
+  },
+  {
+    id: 2,
+    content: "rust看着头大，c++还能看懂一点",
+    author: "唐",
+    category: "bios",
+    date: "2024-10-02",
+    likes: 35,
+  },
+  {
+    id: 3,
+    content: "他母的我tmd根本就不会c和c加加呀。",
+    author: "不知道怎么取名的人",
+    category: "kernel",
+    date: "2024-11-05",
+    likes: 42,
+  },
+  {
+    id: 4,
+    content: "你C++用来开发什么，好强",
+    author: "にゃんと！花火.dllのあおぞらβ诗",
+    category: "vm",
+    date: "2024-12-22",
+    likes: 19,
+  },
+  {
+    id: 5,
+    content: "C++标准是哪个傻逼指定的",
+    author: "朝人の国企🐟",
+    category: "general",
+    date: "2025-03-30",
+    likes: 31,
+  },
+  {
+    id: 6,
+    content: "@Linuxer byd我中考英语考148我吃屎号码",
+    author: "群主",
+    category: "general",
+    date: "2025-05-08",
+    likes: 16,
+  },
+];
 
-  const categories = [
-    { id: "all", name: "全部" },
-    { id: "kernel", name: "内核开发" },
-    { id: "language", name: "编程语言" },
-    { id: "bios", name: "BIOS/固件" },
-    { id: "vm", name: "虚拟机" },
-    { id: "general", name: "综合" },
-  ];
+const categories = [
+  { id: "all", name: "全部" },
+  { id: "kernel", name: "内核开发" },
+  { id: "language", name: "编程语言" },
+  { id: "bios", name: "BIOS/固件" },
+  { id: "vm", name: "虚拟机" },
+  { id: "general", name: "综合" },
+];
 
-  let activeCategory = "all";
-  let searchQuery = "";
+let activeCategory = "all";
+let searchQuery = "";
 
-  const sortOptions = [
-    { id: "newest", name: "最新" },
-    { id: "oldest", name: "最早" },
-    { id: "popular", name: "最受欢迎" },
-  ];
+const sortOptions = [
+  { id: "newest", name: "最新" },
+  { id: "oldest", name: "最早" },
+  { id: "popular", name: "最受欢迎" },
+];
 
-  let activeSort = "newest";
+let activeSort = "newest";
 
-  const handleCategoryClick = (categoryId) => (activeCategory = categoryId);
-  const handleSearchInput = (event) => (searchQuery = event.target.value);
-  const handleClearSearch = () => (searchQuery = "");
-  const handleSortChange = (event) => (activeSort = event.target.value);
+const handleCategoryClick = (categoryId) => (activeCategory = categoryId);
+const handleSearchInput = (event) => (searchQuery = event.target.value);
+const handleClearSearch = () => (searchQuery = "");
+const handleSortChange = (event) => (activeSort = event.target.value);
 
-  $: filteredQuotes = quotes
-    .filter((quote) => {
-      const matchesCategory =
-        activeCategory === "all" || quote.category === activeCategory;
-      const matchesSearch =
-        searchQuery === "" ||
-        quote.content.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        quote.author.toLowerCase().includes(searchQuery.toLowerCase());
+$: filteredQuotes = quotes
+  .filter((quote) => {
+    const matchesCategory =
+      activeCategory === "all" || quote.category === activeCategory;
+    const matchesSearch =
+      searchQuery === "" ||
+      quote.content.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      quote.author.toLowerCase().includes(searchQuery.toLowerCase());
 
-      return matchesCategory && matchesSearch;
-    })
-    .sort((a, b) => {
-      if (activeSort === "newest") {
-        return new Date(b.date) - new Date(a.date);
-      } else if (activeSort === "oldest") {
-        return new Date(a.date) - new Date(b.date);
-      } else if (activeSort === "popular") {
-        return b.likes - a.likes;
-      }
-      return 0;
-    });
+    return matchesCategory && matchesSearch;
+  })
+  .sort((a, b) => {
+    if (activeSort === "newest") {
+      return new Date(b.date) - new Date(a.date);
+    } else if (activeSort === "oldest") {
+      return new Date(a.date) - new Date(b.date);
+    } else if (activeSort === "popular") {
+      return b.likes - a.likes;
+    }
+    return 0;
+  });
 </script>
 
 <section
@@ -112,7 +112,7 @@
   <div
     class="mt-6 flex flex-col space-y-4 sm:flex-row sm:items-center sm:space-x-4 sm:space-y-0"
   >
-    <div class="flex-grow z-10">
+    <div class="grow z-10">
       <div class="relative inline-block w-full sm:max-w-96">
         <input
           type="text"
@@ -160,7 +160,7 @@
   </div>
 </section>
 
-<div class="mx-auto my-8 max-w-screen-lg px-4">
+<div class="mx-auto my-8 max-w-5xl px-4">
   {#if filteredQuotes.length === 0}
     <div class="rounded-lg bg-gray-100 p-8 text-center dark:bg-gray-800">
       <p class="text-lg text-gray-600 dark:text-gray-400">
@@ -207,7 +207,7 @@
     </div>
 
     <div
-      class="mt-10 rounded-lg bg-gradient-to-r from-amber-500 to-yellow-500 p-6 text-white shadow-md dark:from-amber-600 dark:to-yellow-700"
+      class="mt-10 rounded-lg bg-linear-to-r from-amber-500 to-yellow-500 p-6 text-white shadow-md dark:from-amber-600 dark:to-yellow-700"
     >
       <h2 class="text-xl font-bold">有什么值得分享的逆天言论？</h2>
       <p class="mt-2">

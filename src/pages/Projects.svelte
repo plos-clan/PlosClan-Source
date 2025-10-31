@@ -1,56 +1,56 @@
 <script>
-  import Comment from "../components/Comment.svelte";
+import Comment from "../components/Comment.svelte";
 
-  const projects = [
-    {
-      id: 1,
-      title: "傻逼内核",
-      description: "一个傻逼的x86_64架构内核，支持基础内存分页",
-      category: "kernel",
-      technologies: ["Rust", "Assembly", "UEFI"],
-      image: "https://placehold.co/600x400/e9d5ff/1e293b?text=内核示例",
-      github: "#",
-      creators: ["老八", "丁真珍珠"],
-    },
-    {
-      id: 2,
-      title: "CYaRon",
-      description: "洛谷神题，打榜专用，包含LL(1)解析器和字节码虚拟机",
-      category: "language",
-      technologies: ["C", "高性能", "暴力"],
-      image: "https://placehold.co/600x400/e9d5ff/1e293b?text=语言编译器",
-      github: "#",
-      creators: ["黑手"],
-    },
-  ];
+const projects = [
+  {
+    id: 1,
+    title: "傻逼内核",
+    description: "一个傻逼的x86_64架构内核，支持基础内存分页",
+    category: "kernel",
+    technologies: ["Rust", "Assembly", "UEFI"],
+    image: "https://placehold.co/600x400/e9d5ff/1e293b?text=内核示例",
+    github: "#",
+    creators: ["老八", "丁真珍珠"],
+  },
+  {
+    id: 2,
+    title: "CYaRon",
+    description: "洛谷神题，打榜专用，包含LL(1)解析器和字节码虚拟机",
+    category: "language",
+    technologies: ["C", "高性能", "暴力"],
+    image: "https://placehold.co/600x400/e9d5ff/1e293b?text=语言编译器",
+    github: "#",
+    creators: ["黑手"],
+  },
+];
 
-  const categories = [
-    { id: "all", name: "全部" },
-    { id: "kernel", name: "内核开发" },
-    { id: "language", name: "编程语言" },
-    { id: "vm", name: "虚拟机" },
-  ];
+const categories = [
+  { id: "all", name: "全部" },
+  { id: "kernel", name: "内核开发" },
+  { id: "language", name: "编程语言" },
+  { id: "vm", name: "虚拟机" },
+];
 
-  let activeCategory = "all";
-  let searchQuery = "";
+let activeCategory = "all";
+let searchQuery = "";
 
-  const handleSearchInput = (event) => (searchQuery = event.target.value);
-  const handleClearSearch = () => (searchQuery = "");
-  const handleCategoryClick = (categoryId) => (activeCategory = categoryId);
+const handleSearchInput = (event) => (searchQuery = event.target.value);
+const handleClearSearch = () => (searchQuery = "");
+const handleCategoryClick = (categoryId) => (activeCategory = categoryId);
 
-  $: filteredProjects = projects.filter((project) => {
-    const matchesCategory =
-      activeCategory === "all" || project.category === activeCategory;
-    const matchesSearch =
-      searchQuery === "" ||
-      project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      project.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      project.technologies.some((tech) =>
-        tech.toLowerCase().includes(searchQuery.toLowerCase()),
-      );
+$: filteredProjects = projects.filter((project) => {
+  const matchesCategory =
+    activeCategory === "all" || project.category === activeCategory;
+  const matchesSearch =
+    searchQuery === "" ||
+    project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    project.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    project.technologies.some((tech) =>
+      tech.toLowerCase().includes(searchQuery.toLowerCase()),
+    );
 
-    return matchesCategory && matchesSearch;
-  });
+  return matchesCategory && matchesSearch;
+});
 </script>
 
 <section
@@ -65,7 +65,7 @@
   <div
     class="mt-6 flex flex-col space-y-4 sm:flex-row sm:items-center sm:space-x-4 sm:space-y-0"
   >
-    <div class="flex-grow z-10">
+    <div class="grow z-10">
       <div class="relative inline-block w-full sm:max-w-96">
         <input
           type="text"
@@ -103,7 +103,7 @@
   </div>
 </section>
 
-<div class="mx-auto my-8 max-w-screen-lg px-4">
+<div class="mx-auto my-8 max-w-5xl px-4">
   {#if filteredProjects.length === 0}
     <div class="rounded-lg bg-gray-100 p-8 text-center dark:bg-gray-800">
       <p class="text-lg text-gray-600 dark:text-gray-400">
@@ -159,7 +159,7 @@
 
   <!-- Project submission CTA -->
   <div
-    class="mt-12 rounded-lg bg-gradient-to-r from-indigo-500 to-purple-500 p-6 text-white shadow-md dark:from-indigo-600 dark:to-purple-700"
+    class="mt-12 rounded-lg bg-linear-to-r from-indigo-500 to-purple-500 p-6 text-white shadow-md dark:from-indigo-600 dark:to-purple-700"
   >
     <h2 class="text-xl font-bold">有想要展示的项目？</h2>
     <p class="mt-2">

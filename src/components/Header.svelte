@@ -1,16 +1,16 @@
 <script lang="ts">
-  import { active, route } from "@mateothegreat/svelte5-router";
-  import { mode, toggleMode } from "mode-watcher";
-  import { fly } from "svelte/transition";
-  import Logo from "../assets/logo.jpg";
-  import siteTitleMap from "../assets/title_map.json";
+import { active, route } from "@mateothegreat/svelte5-router";
+import { mode, toggleMode } from "mode-watcher";
+import { fly } from "svelte/transition";
+import Logo from "../assets/logo.jpg";
+import siteTitleMap from "../assets/title_map.json";
 
-  let isMobileMenuOpen = false;
-  const mobileMenuToggle = () => (isMobileMenuOpen = !isMobileMenuOpen);
+let isMobileMenuOpen = false;
+const mobileMenuToggle = () => (isMobileMenuOpen = !isMobileMenuOpen);
 </script>
 
 {#snippet headerLogo()}
-  <a href="/" use:route class="my-3 ml-3 mr-4 flex-shrink-0">
+  <a href="/" use:route class="my-3 ml-3 mr-4 shrink-0">
     <img class="h-8 w-8 rounded-full" src={Logo} alt="Logo" />
   </a>
 {/snippet}

@@ -1,51 +1,51 @@
 <script>
-  import { onMount, onDestroy } from "svelte";
-  import siteTitleMap from "../assets/title_map.json";
+import { onMount, onDestroy } from "svelte";
+import siteTitleMap from "../assets/title_map.json";
 
-  const websiteName = "OS 群网站";
+const websiteName = "OS 群网站";
 
-  const titleObject = Object.fromEntries(
-    siteTitleMap.map(({ href, title }) => [href, title]),
-  );
+const titleObject = Object.fromEntries(
+  siteTitleMap.map(({ href, title }) => [href, title]),
+);
 
-  let pageTitle = "";
+let pageTitle = "";
 
-  let originalPushState;
-  let originalReplaceState;
+let originalPushState;
+let originalReplaceState;
 
-  const updatePageTitle = () => {
-    const path = window.location.pathname;
-    pageTitle = titleObject[path] || "页面未找到";
+const updatePageTitle = () => {
+  const path = window.location.pathname;
+  pageTitle = titleObject[path] || "页面未找到";
+};
+
+onMount(() => {
+  updatePageTitle();
+  window.addEventListener("popstate", updatePageTitle);
+
+  originalPushState = history.pushState;
+  originalReplaceState = history.replaceState;
+
+  history.pushState = function (...args) {
+    originalPushState.apply(this, args);
+    updatePageTitle();
   };
 
-  onMount(() => {
+  history.replaceState = function (...args) {
+    originalReplaceState.apply(this, args);
     updatePageTitle();
-    window.addEventListener("popstate", updatePageTitle);
+  };
+});
 
-    originalPushState = history.pushState;
-    originalReplaceState = history.replaceState;
+onDestroy(() => {
+  window.removeEventListener("popstate", updatePageTitle);
 
-    history.pushState = function (...args) {
-      originalPushState.apply(this, args);
-      updatePageTitle();
-    };
-
-    history.replaceState = function (...args) {
-      originalReplaceState.apply(this, args);
-      updatePageTitle();
-    };
-  });
-
-  onDestroy(() => {
-    window.removeEventListener("popstate", updatePageTitle);
-
-    if (originalPushState) {
-      history.pushState = originalPushState;
-    }
-    if (originalReplaceState) {
-      history.replaceState = originalReplaceState;
-    }
-  });
+  if (originalPushState) {
+    history.pushState = originalPushState;
+  }
+  if (originalReplaceState) {
+    history.replaceState = originalReplaceState;
+  }
+});
 </script>
 
 <svelte:head>

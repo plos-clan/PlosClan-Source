@@ -1,81 +1,81 @@
 <script>
-  import Comment from "../components/Comment.svelte";
+import Comment from "../components/Comment.svelte";
 
-  // Sample posts data structure - to be replaced with actual posts
-  const posts = [
-    {
-      id: 1,
-      title: "手写LL(1)解析器的挑战与乐趣",
-      content:
-        "为了更深入理解编译原理，我尝试了手写一个LL(1)解析器，这里是我的经验...",
-      author: "老八",
-      category: "编程语言",
-      date: "2024-09-18",
-      likes: 4,
-      comments: 2,
-      tags: ["编译器", "解析器", "语法分析"],
-    },
-    {
-      id: 2,
-      title: "从零开始实现一个寄存器虚拟机",
-      content:
-        "最近完成了一个简单的基于寄存器的虚拟机实现，性能比之前的栈虚拟机有了明显提升...",
-      author: "丁真珍珠",
-      category: "虚拟机",
-      date: "2025-01-05",
-      likes: 8,
-      comments: 1,
-      tags: ["虚拟机", "JIT", "性能优化"],
-    },
-  ];
+// Sample posts data structure - to be replaced with actual posts
+const posts = [
+  {
+    id: 1,
+    title: "手写LL(1)解析器的挑战与乐趣",
+    content:
+      "为了更深入理解编译原理，我尝试了手写一个LL(1)解析器，这里是我的经验...",
+    author: "老八",
+    category: "编程语言",
+    date: "2024-09-18",
+    likes: 4,
+    comments: 2,
+    tags: ["编译器", "解析器", "语法分析"],
+  },
+  {
+    id: 2,
+    title: "从零开始实现一个寄存器虚拟机",
+    content:
+      "最近完成了一个简单的基于寄存器的虚拟机实现，性能比之前的栈虚拟机有了明显提升...",
+    author: "丁真珍珠",
+    category: "虚拟机",
+    date: "2025-01-05",
+    likes: 8,
+    comments: 1,
+    tags: ["虚拟机", "JIT", "性能优化"],
+  },
+];
 
-  const categories = [
-    { id: "all", name: "全部" },
-    { id: "编程语言", name: "编程语言" },
-    { id: "虚拟机", name: "虚拟机" },
-    { id: "其他", name: "其他" },
-  ];
+const categories = [
+  { id: "all", name: "全部" },
+  { id: "编程语言", name: "编程语言" },
+  { id: "虚拟机", name: "虚拟机" },
+  { id: "其他", name: "其他" },
+];
 
-  let activeCategory = "all";
-  let searchQuery = "";
+let activeCategory = "all";
+let searchQuery = "";
 
-  const sortOptions = [
-    { id: "newest", name: "最新" },
-    { id: "popular", name: "最热门" },
-    { id: "comments", name: "评论最多" },
-  ];
+const sortOptions = [
+  { id: "newest", name: "最新" },
+  { id: "popular", name: "最热门" },
+  { id: "comments", name: "评论最多" },
+];
 
-  let activeSort = "newest";
+let activeSort = "newest";
 
-  $: filteredPosts = posts
-    .filter((post) => {
-      const matchesCategory =
-        activeCategory === "all" || post.category === activeCategory;
-      const matchesSearch =
-        searchQuery === "" ||
-        post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        post.content.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        post.author.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        post.tags.some((tag) =>
-          tag.toLowerCase().includes(searchQuery.toLowerCase()),
-        );
+$: filteredPosts = posts
+  .filter((post) => {
+    const matchesCategory =
+      activeCategory === "all" || post.category === activeCategory;
+    const matchesSearch =
+      searchQuery === "" ||
+      post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      post.content.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      post.author.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      post.tags.some((tag) =>
+        tag.toLowerCase().includes(searchQuery.toLowerCase()),
+      );
 
-      return matchesCategory && matchesSearch;
-    })
-    .sort((a, b) => {
-      if (activeSort === "newest") {
-        return new Date(b.date) - new Date(a.date);
-      } else if (activeSort === "popular") {
-        return b.likes - a.likes;
-      } else if (activeSort === "comments") {
-        return b.comments - a.comments;
-      }
-      return 0;
-    });
+    return matchesCategory && matchesSearch;
+  })
+  .sort((a, b) => {
+    if (activeSort === "newest") {
+      return new Date(b.date) - new Date(a.date);
+    } else if (activeSort === "popular") {
+      return b.likes - a.likes;
+    } else if (activeSort === "comments") {
+      return b.comments - a.comments;
+    }
+    return 0;
+  });
 
-  const handleSearchInput = (event) => (searchQuery = event.target.value);
-  const handleSortChange = (event) => (activeSort = event.target.value);
-  const handleCategoryClick = (categoryId) => (activeCategory = categoryId);
+const handleSearchInput = (event) => (searchQuery = event.target.value);
+const handleSortChange = (event) => (activeSort = event.target.value);
+const handleCategoryClick = (categoryId) => (activeCategory = categoryId);
 </script>
 
 <section
@@ -90,7 +90,7 @@
   <div
     class="mt-6 flex flex-col space-y-4 sm:flex-row sm:items-center sm:space-x-4 sm:space-y-0"
   >
-    <div class="flex-grow z-10">
+    <div class="grow z-10">
       <div class="relative inline-block w-full sm:max-w-96">
         <input
           type="text"
@@ -138,7 +138,7 @@
   </div>
 </section>
 
-<div class="mx-auto my-8 max-w-screen-lg px-4">
+<div class="mx-auto my-8 max-w-5xlg px-4">
   {#if filteredPosts.length === 0}
     <div class="rounded-lg bg-gray-100 p-8 text-center dark:bg-gray-800">
       <p class="text-lg text-gray-600 dark:text-gray-400">

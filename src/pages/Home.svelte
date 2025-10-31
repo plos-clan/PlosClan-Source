@@ -1,7 +1,7 @@
 <script>
-  import Comment from "../components/Comment.svelte";
+import Comment from "../components/Comment.svelte";
 
-  let count = $state(0);
+let count = $state(0);
 </script>
 
 <section

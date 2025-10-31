@@ -187,10 +187,10 @@
           <img
             src={item.imageUrl}
             alt={item.title}
-            class="aspect-[3/4] w-full object-cover transition-transform group-hover:scale-105"
+            class="aspect-3/4 w-full object-cover transition-transform group-hover:scale-105"
           />
           <div
-            class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 text-white"
+            class="absolute bottom-0 left-0 right-0 bg-linear-to-t from-black/70 to-transparent p-4 text-white"
           >
             <h3 class="text-lg font-medium">{item.title}</h3>
             <p class="mt-1 text-sm text-gray-200">{item.date}</p>
@@ -256,7 +256,7 @@
 
   <!-- Submission note -->
   <div
-    class="mt-12 rounded-lg bg-gradient-to-r from-rose-500 to-pink-500 p-6 text-white shadow-md dark:from-rose-600 dark:to-pink-700"
+    class="mt-12 rounded-lg bg-linear-to-r from-rose-500 to-pink-500 p-6 text-white shadow-md dark:from-rose-600 dark:to-pink-700"
   >
     <h2 class="text-xl font-bold">照片收集中</h2>
     <p class="mt-2">
