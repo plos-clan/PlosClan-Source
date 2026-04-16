@@ -11,7 +11,7 @@ const baseLinkClasses =
 <nav class="relative w-full bg-white px-2 shadow-md dark:bg-slate-800" data-site-header>
   <div class="mx-auto flex h-16 items-center justify-between">
     <div class="flex items-center">
-      <a class="my-3 ml-3 mr-4 shrink-0" data-astro-prefetch href="/">
+      <a class="my-3 ml-3 mr-4 shrink-0" href="/">
         <Image
           alt="OS 群网站 Logo"
           class="h-8 w-8 rounded-full"
@@ -28,7 +28,6 @@ const baseLinkClasses =
             NAV_PAGES.map((page) => (
               <li class="w-full md:w-auto">
                 <a
-                  data-astro-prefetch
                   class={`${baseLinkClasses}${currentPath === page.href ? ' font-bold' : ''}`}
                   href={page.href}
                 >
@@ -94,7 +93,6 @@ const baseLinkClasses =
           <li class="w-full md:w-auto">
             <a
               class={`${baseLinkClasses}${currentPath === page.href ? ' font-bold' : ''}`}
-              data-astro-prefetch
               data-mobile-link
               href={page.href}
             >
