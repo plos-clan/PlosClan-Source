@@ -1,26 +1,17 @@
 ## PlosClan Source
 
-在制作逆天奇行种网站的同时学习一些前端知识。
-
-项目使用 TailwindCSS，你可以从 [Tailwind Elements](https://tw-elements.com/) 找到大量的组件模板。
+这个仓库现在是一个 Astro 静态站点，保留了原网站的视觉样式、路由和交互，同时移除了 Svelte 运行时。
 
 ### 项目结构
 
-每个页面已经放在 `pages` 文件夹下：
-
-- `Home.svelte` 首页
-- `Resources.svelte` 资源下载
-- `Words.svelte` 逆天言论
-- `Posts.svelte` 整活贴吧
-- `Projects.svelte` 推荐项目
-- `Dress.svelte` 群主女装
-- `About.svelte` 关于
-
-每个开发者只需编辑相应的页面，前端路由将引导传送之力，在不刷新页面的情况下进行页面切换。
+- `src/pages/`：Astro 文件路由页面
+- `src/layouts/`：公共页面壳层
+- `src/components/`：导航、评论等可复用组件
+- `src/content/`：Astro content collections，承载页面数据
 
 ### 如何开始
 
-先安装 `node` 和 `pnpm`，并获取依赖：
+先安装依赖：
 
 ```bash
 bun install
@@ -30,4 +21,11 @@ bun install
 
 ```bash
 bun run dev
+```
+
+常用检查命令：
+
+```bash
+bun run check
+bun run build
 ```

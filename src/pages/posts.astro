@@ -1,0 +1,291 @@
+---
+import { getCollection } from 'astro:content'
+import Comments from '../components/Comments.astro'
+import Main from '../Main.astro'
+import { PAGES } from '../site-config'
+const categories = [
+  { id: 'all', name: '全部' },
+  { id: '编程语言', name: '编程语言' },
+  { id: '虚拟机', name: '虚拟机' },
+  { id: '其他', name: '其他' }
+]
+const sortOptions = [
+  { id: 'newest', name: '最新' },
+  { id: 'popular', name: '最热门' },
+  { id: 'comments', name: '评论最多' }
+]
+const posts = (await getCollection('posts')).sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+)
+---
+
+<Main pageTitle={PAGES['/posts'].title}>
+  <section class="bg-purple-100 p-8 text-gray-700 dark:bg-purple-900 dark:text-purple-50">
+    <h1 class="text-2xl font-bold">整活贴吧</h1>
+    <p class="mt-2 text-purple-700 dark:text-purple-200">
+      这里是我们交流和分享编程经验、心得和问题的地方。
+    </p>
+
+    <div
+      class="mt-6 flex flex-col space-y-4 sm:flex-row sm:items-center sm:space-x-4 sm:space-y-0"
+      data-posts-page
+    >
+      <div class="grow z-10">
+        <div class="relative inline-block w-full sm:max-w-96">
+          <input
+            class="w-full rounded-lg border border-purple-200 bg-white px-4 py-2 pr-10 text-gray-700 shadow-sm focus:border-purple-400 focus:outline-none dark:border-purple-700 dark:bg-gray-800 dark:text-gray-200"
+            data-posts-search
+            placeholder="搜索帖子..."
+            type="text"
+          />
+          <button
+            class="absolute right-2 top-1/2 -translate-y-1/2 rounded-md px-2 py-1 text-gray-400 hover:text-purple-600 dark:text-gray-500 dark:hover:text-purple-300"
+            data-posts-clear
+            type="button"
+          >
+            🔍
+          </button>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap gap-2">
+        {
+          categories.map((category) => (
+            <button
+              class={`rounded-full px-3 py-1 text-sm font-medium transition-colors ${
+                category.id === 'all'
+                  ? 'bg-purple-600 text-white'
+                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600'
+              }`}
+              data-posts-category={category.id}
+              type="button"
+            >
+              {category.name}
+            </button>
+          ))
+        }
+      </div>
+
+      <select
+        class="rounded-lg border border-purple-200 bg-white px-3 py-2 text-gray-700 shadow-sm focus:border-purple-400 focus:outline-none dark:border-purple-700 dark:bg-gray-800 dark:text-gray-200"
+        data-posts-sort
+      >
+        {
+          sortOptions.map((option) => (
+            <option value={option.id}>{option.name}</option>
+          ))
+        }
+      </select>
+    </div>
+  </section>
+
+  <div class="mx-auto my-8 max-w-5xl px-4">
+    <div class="hidden rounded-lg bg-gray-100 p-8 text-center dark:bg-gray-800" data-posts-empty>
+      <p class="text-lg text-gray-600 dark:text-gray-400">没有找到符合条件的帖子</p>
+    </div>
+
+    <div class="space-y-6" data-posts-list>
+      {
+        posts.map((post) => (
+          <div
+            class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md dark:border-gray-700 dark:bg-gray-800"
+            data-posts-card
+            data-posts-category-id={post.data.category}
+            data-posts-comments={post.data.comments}
+            data-posts-date={post.data.date}
+            data-posts-likes={post.data.likes}
+            data-posts-search-text={`${post.data.title} ${post.data.content} ${post.data.author} ${post.data.tags.join(' ')}`.toLowerCase()}
+          >
+            <div class="mb-3 flex items-center justify-between">
+              <div>
+                <span class="font-medium text-gray-800 dark:text-gray-200">{post.data.author}</span>
+                <span class="ml-2 text-sm text-gray-500 dark:text-gray-400">{post.data.date}</span>
+                <span class="ml-2 rounded-full bg-purple-100 px-2.5 py-0.5 text-xs font-medium text-purple-800 dark:bg-purple-900 dark:text-purple-200">
+                  {post.data.category}
+                </span>
+              </div>
+            </div>
+
+            <h2 class="mb-2 text-xl font-bold text-gray-800 dark:text-gray-200">{post.data.title}</h2>
+
+            <p class="text-gray-600 dark:text-gray-400">{post.data.content}</p>
+
+            <div class="mt-4 flex flex-wrap gap-2">
+              {
+                post.data.tags.map((tag) => (
+                  <span class="rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-700 dark:bg-gray-700 dark:text-gray-300">
+                    #{tag}
+                  </span>
+                ))
+              }
+            </div>
+
+            <div class="mt-4 flex items-center space-x-4 text-gray-500 dark:text-gray-400">
+              <button class="flex items-center gap-1 hover:text-purple-600 dark:hover:text-purple-300" type="button">
+                <span>👍</span>
+                <span>{post.data.likes}</span>
+              </button>
+              <button class="flex items-center gap-1 hover:text-purple-600 dark:hover:text-purple-300" type="button">
+                <span>💬</span>
+                <span>{post.data.comments}</span>
+              </button>
+              <button class="ml-auto hover:text-purple-600 dark:hover:text-purple-300" type="button">
+                查看详情
+              </button>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="mt-8 flex justify-center" data-posts-pagination>
+      <nav class="flex items-center space-x-1">
+        <button
+          class="rounded-md px-3 py-1.5 text-sm text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
+          type="button"
+        >
+          &lt;
+        </button>
+        <button
+          class="rounded-md bg-purple-100 px-3 py-1.5 text-sm text-purple-700 dark:bg-purple-900 dark:text-purple-200"
+          type="button"
+        >
+          1
+        </button>
+        <button
+          class="rounded-md px-3 py-1.5 text-sm text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
+          type="button"
+        >
+          2
+        </button>
+        <button
+          class="rounded-md px-3 py-1.5 text-sm text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
+          type="button"
+        >
+          3
+        </button>
+        <button
+          class="rounded-md px-3 py-1.5 text-sm text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
+          type="button"
+        >
+          &gt;
+        </button>
+      </nav>
+    </div>
+  </div>
+
+  <Comments />
+</Main>
+
+<script>
+  const setupPostsPage = () => {
+    const root = document.querySelector<HTMLElement>('[data-posts-page]')
+
+    if (!root || root.dataset.ready === 'true') {
+      return
+    }
+
+    root.dataset.ready = 'true'
+
+    const searchInput = root.querySelector<HTMLInputElement>('[data-posts-search]')
+    const clearButton = root.querySelector<HTMLButtonElement>('[data-posts-clear]')
+    const categoryButtons = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-posts-category]'))
+    const sortSelect = root.querySelector<HTMLSelectElement>('[data-posts-sort]')
+    const list = document.querySelector<HTMLElement>('[data-posts-list]')
+    const cards = Array.from(document.querySelectorAll<HTMLElement>('[data-posts-card]'))
+    const emptyState = document.querySelector<HTMLElement>('[data-posts-empty]')
+    const pagination = document.querySelector<HTMLElement>('[data-posts-pagination]')
+
+    if (!searchInput || !clearButton || !sortSelect || !list || !emptyState || !pagination) {
+      return
+    }
+
+    let activeCategory = 'all'
+    let activeSort = 'newest'
+
+    const activeClasses = ['bg-purple-600', 'text-white']
+    const inactiveClasses = [
+      'bg-gray-200',
+      'text-gray-700',
+      'hover:bg-gray-300',
+      'dark:bg-gray-700',
+      'dark:text-gray-300',
+      'dark:hover:bg-gray-600'
+    ]
+
+    const setButtonState = (button: HTMLButtonElement, isActive: boolean) => {
+      activeClasses.forEach((className) => button.classList.toggle(className, isActive))
+      inactiveClasses.forEach((className) => button.classList.toggle(className, !isActive))
+    }
+
+    const sortCards = (left: HTMLElement, right: HTMLElement) => {
+      if (activeSort === 'popular') {
+        return Number(right.dataset.postsLikes) - Number(left.dataset.postsLikes)
+      }
+
+      if (activeSort === 'comments') {
+        return Number(right.dataset.postsComments) - Number(left.dataset.postsComments)
+      }
+
+      return new Date(right.dataset.postsDate || '').getTime() -
+        new Date(left.dataset.postsDate || '').getTime()
+    }
+
+    const render = () => {
+      const query = searchInput.value.trim().toLowerCase()
+      const visibleCards = cards
+        .filter((card) => {
+          const matchesCategory =
+            activeCategory === 'all' || card.dataset.postsCategoryId === activeCategory
+          const searchText = card.dataset.postsSearchText || ''
+          const matchesSearch = query === '' || searchText.includes(query)
+
+          return matchesCategory && matchesSearch
+        })
+        .sort(sortCards)
+
+      clearButton.textContent = query ? '✕' : '🔍'
+      sortSelect.value = activeSort
+
+      categoryButtons.forEach((button) => {
+        setButtonState(button, button.dataset.postsCategory === activeCategory)
+      })
+
+      cards.forEach((card) => card.classList.add('hidden'))
+      visibleCards.forEach((card) => {
+        card.classList.remove('hidden')
+        list.append(card)
+      })
+
+      const hasResults = visibleCards.length > 0
+
+      list.classList.toggle('hidden', !hasResults)
+      pagination.classList.toggle('hidden', !hasResults)
+      emptyState.classList.toggle('hidden', hasResults)
+    }
+
+    searchInput.addEventListener('input', render)
+    clearButton.addEventListener('click', () => {
+      searchInput.value = ''
+      render()
+    })
+    sortSelect.addEventListener('change', () => {
+      activeSort = sortSelect.value
+      render()
+    })
+    categoryButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        activeCategory = button.dataset.postsCategory || 'all'
+        render()
+      })
+    })
+
+    render()
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupPostsPage, { once: true })
+  } else {
+    setupPostsPage()
+  }
+</script>

@@ -1,0 +1,247 @@
+---
+import { getCollection } from 'astro:content'
+import Comments from '../components/Comments.astro'
+import Main from '../Main.astro'
+import { PAGES } from '../site-config'
+const categories = [
+  { id: 'all', name: '全部' },
+  { id: 'kernel', name: '内核开发' },
+  { id: 'language', name: '编程语言' },
+  { id: 'bios', name: 'BIOS/固件' },
+  { id: 'vm', name: '虚拟机' },
+  { id: 'general', name: '综合' }
+]
+const sortOptions = [
+  { id: 'newest', name: '最新' },
+  { id: 'oldest', name: '最早' },
+  { id: 'popular', name: '最受欢迎' }
+]
+const quotes = (await getCollection('quotes')).sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+)
+---
+
+<Main pageTitle={PAGES['/words'].title}>
+  <section class="bg-amber-50 p-8 text-gray-700 dark:bg-amber-900 dark:text-amber-50">
+    <h1 class="text-2xl font-bold">逆天言论</h1>
+    <p class="mt-2 text-amber-700 dark:text-amber-200">
+      收集了我们在编程和开发过程中的各种有趣、离谱或发人深省的言论。
+    </p>
+
+    <div
+      class="mt-6 flex flex-col space-y-4 sm:flex-row sm:items-center sm:space-x-4 sm:space-y-0"
+      data-words-page
+    >
+      <div class="grow z-10">
+        <div class="relative inline-block w-full sm:max-w-96">
+          <input
+            class="w-full rounded-lg border border-amber-200 bg-white px-4 py-2 pr-10 text-gray-700 shadow-sm focus:border-amber-400 focus:outline-none dark:border-amber-700 dark:bg-gray-800 dark:text-gray-200"
+            data-words-search
+            placeholder="搜索言论..."
+            type="text"
+          />
+          <button
+            class="absolute right-2 top-1/2 -translate-y-1/2 rounded-md px-2 py-1 text-gray-400 hover:text-amber-600 dark:text-gray-500 dark:hover:text-amber-300"
+            data-words-clear
+            type="button"
+          >
+            🔍
+          </button>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap gap-2">
+        {
+          categories.map((category) => (
+            <button
+              class={`rounded-full px-3 py-1 text-sm font-medium transition-colors ${
+                category.id === 'all'
+                  ? 'bg-amber-600 text-white'
+                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600'
+              }`}
+              data-words-category={category.id}
+              type="button"
+            >
+              {category.name}
+            </button>
+          ))
+        }
+      </div>
+
+      <select
+        class="rounded-lg border border-amber-200 bg-white px-3 py-2 text-gray-700 shadow-sm focus:border-amber-400 focus:outline-none dark:border-amber-700 dark:bg-gray-800 dark:text-gray-200"
+        data-words-sort
+      >
+        {
+          sortOptions.map((option) => (
+            <option value={option.id}>{option.name}</option>
+          ))
+        }
+      </select>
+    </div>
+  </section>
+
+  <div class="mx-auto my-8 max-w-5xl px-4">
+    <div class="hidden rounded-lg bg-gray-100 p-8 text-center dark:bg-gray-800" data-words-empty>
+      <p class="text-lg text-gray-600 dark:text-gray-400">没有找到符合条件的言论</p>
+    </div>
+
+    <div class="space-y-4" data-words-list>
+      {
+        quotes.map((quote) => (
+          <div
+            class="rounded-lg border border-gray-200 bg-white p-5 shadow-sm transition-all hover:shadow-md dark:border-gray-700 dark:bg-gray-800"
+            data-words-card
+            data-words-category-id={quote.data.category}
+            data-words-date={quote.data.date}
+            data-words-likes={quote.data.likes}
+            data-words-search-text={`${quote.data.content} ${quote.data.author}`.toLowerCase()}
+          >
+            <blockquote class="border-l-4 border-amber-500 pl-4 italic text-gray-700 dark:text-gray-300">
+              "{quote.data.content}"
+            </blockquote>
+
+            <div class="mt-4 flex flex-wrap items-center justify-between gap-2">
+              <div>
+                <span class="font-medium text-gray-500 dark:text-gray-300">— {quote.data.author}</span>
+                <span class="ml-2 text-sm text-gray-400 dark:text-gray-400">{quote.data.date}</span>
+                <span class="ml-2 rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-medium text-amber-800 dark:bg-amber-900 dark:text-amber-200">
+                  {quote.data.categoryName}
+                </span>
+              </div>
+
+              <button
+                class="flex items-center gap-1 rounded-full bg-gray-100 px-3 py-1 text-sm text-gray-700 transition-colors hover:bg-amber-100 hover:text-amber-700 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-amber-800 dark:hover:text-amber-200"
+                type="button"
+              >
+                <span>👍</span>
+                <span>{quote.data.likes}</span>
+              </button>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+
+    <div
+      class="mt-10 rounded-lg bg-linear-to-r from-amber-500 to-yellow-500 p-6 text-white shadow-md dark:from-amber-600 dark:to-yellow-700"
+      data-words-cta
+    >
+      <h2 class="text-xl font-bold">有什么值得分享的逆天言论？</h2>
+      <p class="mt-2">如果你在开发过程中有什么有趣或深刻的言论，欢迎提交给我们！</p>
+    </div>
+  </div>
+
+  <Comments />
+</Main>
+
+<script>
+  const setupWordsPage = () => {
+    const root = document.querySelector<HTMLElement>('[data-words-page]')
+
+    if (!root || root.dataset.ready === 'true') {
+      return
+    }
+
+    root.dataset.ready = 'true'
+
+    const searchInput = root.querySelector<HTMLInputElement>('[data-words-search]')
+    const clearButton = root.querySelector<HTMLButtonElement>('[data-words-clear]')
+    const categoryButtons = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-words-category]'))
+    const sortSelect = root.querySelector<HTMLSelectElement>('[data-words-sort]')
+    const list = document.querySelector<HTMLElement>('[data-words-list]')
+    const cards = Array.from(document.querySelectorAll<HTMLElement>('[data-words-card]'))
+    const emptyState = document.querySelector<HTMLElement>('[data-words-empty]')
+    const cta = document.querySelector<HTMLElement>('[data-words-cta]')
+
+    if (!searchInput || !clearButton || !sortSelect || !list || !emptyState || !cta) {
+      return
+    }
+
+    let activeCategory = 'all'
+    let activeSort = 'newest'
+
+    const activeClasses = ['bg-amber-600', 'text-white']
+    const inactiveClasses = [
+      'bg-gray-200',
+      'text-gray-700',
+      'hover:bg-gray-300',
+      'dark:bg-gray-700',
+      'dark:text-gray-300',
+      'dark:hover:bg-gray-600'
+    ]
+
+    const setButtonState = (button: HTMLButtonElement, isActive: boolean) => {
+      activeClasses.forEach((className) => button.classList.toggle(className, isActive))
+      inactiveClasses.forEach((className) => button.classList.toggle(className, !isActive))
+    }
+
+    const sortCards = (left: HTMLElement, right: HTMLElement) => {
+      if (activeSort === 'popular') {
+        return Number(right.dataset.wordsLikes) - Number(left.dataset.wordsLikes)
+      }
+
+      const leftDate = new Date(left.dataset.wordsDate || '').getTime()
+      const rightDate = new Date(right.dataset.wordsDate || '').getTime()
+
+      return activeSort === 'oldest' ? leftDate - rightDate : rightDate - leftDate
+    }
+
+    const render = () => {
+      const query = searchInput.value.trim().toLowerCase()
+      const visibleCards = cards
+        .filter((card) => {
+          const matchesCategory =
+            activeCategory === 'all' || card.dataset.wordsCategoryId === activeCategory
+          const searchText = card.dataset.wordsSearchText || ''
+          const matchesSearch = query === '' || searchText.includes(query)
+
+          return matchesCategory && matchesSearch
+        })
+        .sort(sortCards)
+
+      clearButton.textContent = query ? '✕' : '🔍'
+      sortSelect.value = activeSort
+
+      categoryButtons.forEach((button) => {
+        setButtonState(button, button.dataset.wordsCategory === activeCategory)
+      })
+
+      cards.forEach((card) => card.classList.add('hidden'))
+      visibleCards.forEach((card) => {
+        card.classList.remove('hidden')
+        list.append(card)
+      })
+
+      const hasResults = visibleCards.length > 0
+
+      list.classList.toggle('hidden', !hasResults)
+      cta.classList.toggle('hidden', !hasResults)
+      emptyState.classList.toggle('hidden', hasResults)
+    }
+
+    searchInput.addEventListener('input', render)
+    clearButton.addEventListener('click', () => {
+      searchInput.value = ''
+      render()
+    })
+    sortSelect.addEventListener('change', () => {
+      activeSort = sortSelect.value
+      render()
+    })
+    categoryButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        activeCategory = button.dataset.wordsCategory || 'all'
+        render()
+      })
+    })
+
+    render()
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupWordsPage, { once: true })
+  } else {
+    setupWordsPage()
+  }
+</script>

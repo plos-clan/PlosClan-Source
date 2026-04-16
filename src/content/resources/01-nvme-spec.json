@@ -1,0 +1,11 @@
+{
+  "category": "os",
+  "categoryDescription": "内核、操作系统和BIOS开发的资源",
+  "categoryName": "操作系统",
+  "dateAdded": "2024-10-15",
+  "description": "从官网扒下来的NVMe文档，想做NVMe驱动的看这个",
+  "downloadUrl": "#",
+  "fileSize": "4.2 MB",
+  "order": 1,
+  "title": "NVM Express Base Specification"
+}

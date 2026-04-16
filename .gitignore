@@ -4,11 +4,9 @@
 *.log*
 
 # Dist
-node_modules
+.astro/
 dist/
-
-# Profile
-.rspack-profile-*/
+node_modules
 
 # IDE
 .vscode/*

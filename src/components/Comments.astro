@@ -1,0 +1,77 @@
+<div class="mx-auto my-4 mt-12 max-w-screen-md px-4">
+  <div class="mx-auto my-8 max-w-screen-lg">
+    <div class="flex items-center justify-center">
+      <div class="h-px w-1/3 bg-gray-300 dark:bg-gray-600"></div>
+      <span class="mx-4 text-gray-500 dark:text-gray-400">讨论区</span>
+      <div class="h-px w-1/3 bg-gray-300 dark:bg-gray-600"></div>
+    </div>
+  </div>
+
+  <div data-giscus-container></div>
+</div>
+
+<script>
+  const getGiscusTheme = () =>
+    document.documentElement.classList.contains('dark') ? 'noborder_gray' : 'light_tritanopia'
+
+  const syncGiscusTheme = () => {
+    const iframe = document.querySelector<HTMLIFrameElement>('iframe.giscus-frame')
+
+    iframe?.contentWindow?.postMessage(
+      {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme()
+          }
+        }
+      },
+      'https://giscus.app'
+    )
+  }
+
+  const setupGiscus = () => {
+    const container = document.querySelector<HTMLElement>('[data-giscus-container]')
+
+    if (!container || container.dataset.ready === 'true') {
+      return
+    }
+
+    container.dataset.ready = 'true'
+
+    const script = document.createElement('script')
+    script.src = 'https://giscus.app/client.js'
+    script.async = true
+    script.crossOrigin = 'anonymous'
+    script.setAttribute('data-repo', 'plos-clan/PlosClan-Source')
+    script.setAttribute('data-repo-id', 'R_kgDOKgRxiA')
+    script.setAttribute('data-category', 'General')
+    script.setAttribute('data-category-id', 'DIC_kwDOKgRxiM4ChzPi')
+    script.setAttribute('data-mapping', 'og:title')
+    script.setAttribute('data-strict', '0')
+    script.setAttribute('data-reactions-enabled', '1')
+    script.setAttribute('data-emit-metadata', '0')
+    script.setAttribute('data-input-position', 'top')
+    script.setAttribute('data-theme', getGiscusTheme())
+    script.setAttribute('data-lang', 'zh-CN')
+    script.setAttribute('data-loading', 'lazy')
+    script.addEventListener('load', () => {
+      window.setTimeout(syncGiscusTheme, 0)
+    })
+
+    container.append(script)
+
+    const observer = new MutationObserver(syncGiscusTheme)
+    observer.observe(document.documentElement, {
+      attributeFilter: ['class'],
+      attributes: true
+    })
+
+    window.addEventListener('themechange', syncGiscusTheme)
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupGiscus, { once: true })
+  } else {
+    setupGiscus()
+  }
+</script>

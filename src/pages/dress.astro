@@ -1,0 +1,444 @@
+---
+import { getCollection } from 'astro:content'
+import Comments from '../components/Comments.astro'
+import Main from '../Main.astro'
+import { PAGES } from '../site-config'
+const galleryByOrder = (await getCollection('gallery')).sort((a, b) => a.data.order - b.data.order)
+const galleryItems = [...galleryByOrder].sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+)
+const allTags = [...new Set(galleryByOrder.flatMap((item) => item.data.tags))]
+const galleryPayload = galleryByOrder.map((item) => ({
+  id: item.id,
+  ...item.data
+}))
+---
+
+<Main pageTitle={PAGES['/dress'].title}>
+  <section class="bg-rose-100 p-8 text-gray-700 dark:bg-rose-900 dark:text-rose-50">
+    <h1 class="text-2xl font-bold">群主女装</h1>
+    <p class="mt-2 text-rose-700 dark:text-rose-200">
+      这里展示了我们可爱的群主在各种活动中的装扮照片，尽情欣赏吧！
+    </p>
+
+    <div
+      class="mt-6 flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between sm:space-x-4 sm:space-y-0"
+      data-dress-page
+    >
+      <div class="flex flex-wrap gap-2">
+        <button
+          class="rounded-full bg-rose-600 px-3 py-1 text-sm font-medium text-white transition-colors"
+          data-dress-tag-all
+          type="button"
+        >
+          全部
+        </button>
+
+        {
+          allTags.map((tag) => (
+            <button
+              class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
+              data-dress-tag={tag}
+              type="button"
+            >
+              {tag}
+            </button>
+          ))
+        }
+      </div>
+
+      <div class="flex items-center space-x-3">
+        <select
+          class="rounded-lg border border-rose-200 bg-white px-3 py-1.5 text-sm text-gray-700 shadow-sm focus:border-rose-400 focus:outline-none dark:border-rose-700 dark:bg-gray-800 dark:text-gray-200"
+          data-dress-sort
+        >
+          <option value="newest">最新</option>
+          <option value="oldest">最早</option>
+          <option value="popular">最受欢迎</option>
+        </select>
+
+        <div class="flex rounded-lg border border-rose-200 dark:border-rose-700">
+          <button
+            class="rounded-l-lg bg-rose-600 px-3 py-1.5 text-sm text-white"
+            data-dress-view="grid"
+            type="button"
+          >
+            网格视图
+          </button>
+          <button
+            class="rounded-r-lg bg-white px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
+            data-dress-view="list"
+            type="button"
+          >
+            列表视图
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="mx-auto my-8 max-w-screen-lg px-4">
+    <div class="hidden rounded-lg bg-gray-100 p-8 text-center dark:bg-gray-800" data-dress-empty>
+      <p class="text-lg text-gray-600 dark:text-gray-400">没有找到符合条件的装扮照片</p>
+    </div>
+
+    <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4" data-dress-grid>
+      {
+        galleryItems.map((item) => (
+          <div
+            class="group relative overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition-all hover:shadow-md dark:border-gray-700 dark:bg-gray-800"
+            data-dress-grid-card
+            data-dress-item-id={item.id}
+            role="button"
+            tabindex="0"
+          >
+            <img
+              alt={item.data.title}
+              class="aspect-3/4 w-full object-cover transition-transform group-hover:scale-105"
+              src={item.data.imageUrl}
+            />
+            <div class="absolute bottom-0 left-0 right-0 bg-linear-to-t from-black/70 to-transparent p-4 text-white">
+              <h3 class="text-lg font-medium">{item.data.title}</h3>
+              <p class="mt-1 text-sm text-gray-200">{item.data.date}</p>
+              <div class="mt-2 flex items-center">
+                <span class="flex items-center gap-1">
+                  <span>❤️</span>
+                  <span>{item.data.likes}</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="hidden space-y-4" data-dress-list>
+      {
+        galleryItems.map((item) => (
+          <div
+            class="flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition-all hover:shadow-md dark:border-gray-700 dark:bg-gray-800 sm:flex-row"
+            data-dress-list-card
+            data-dress-item-id={item.id}
+            role="button"
+            tabindex="0"
+          >
+            <img
+              alt={item.data.title}
+              class="h-60 w-full object-cover sm:h-auto sm:w-1/3"
+              src={item.data.imageUrl}
+            />
+            <div class="flex flex-1 flex-col justify-between p-5">
+              <div>
+                <h3 class="text-xl font-bold text-gray-800 dark:text-gray-200">{item.data.title}</h3>
+                <p class="mt-2 text-gray-600 dark:text-gray-400">{item.data.description}</p>
+                <div class="mt-3 flex flex-wrap gap-2">
+                  {
+                    item.data.tags.map((tag) => (
+                      <span class="rounded-full bg-rose-100 px-2.5 py-0.5 text-xs font-medium text-rose-800 dark:bg-rose-900 dark:text-rose-200">
+                        {tag}
+                      </span>
+                    ))
+                  }
+                </div>
+              </div>
+              <div class="mt-4 flex items-center justify-between">
+                <span class="text-sm text-gray-500 dark:text-gray-400">{item.data.date}</span>
+                <span class="flex items-center gap-1 text-rose-600 dark:text-rose-400">
+                  <span>❤️</span>
+                  <span>{item.data.likes}</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+
+    <div
+      class="mt-12 rounded-lg bg-linear-to-r from-rose-500 to-pink-500 p-6 text-white shadow-md dark:from-rose-600 dark:to-pink-700"
+    >
+      <h2 class="text-xl font-bold">照片收集中</h2>
+      <p class="mt-2">我们正在收集更多群主的装扮照片！如果你有群主的装扮照片，欢迎提交给我们。</p>
+    </div>
+  </div>
+
+  <div class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 p-4" data-dress-modal>
+    <div class="relative max-h-[90vh] max-w-4xl overflow-hidden rounded-lg bg-white dark:bg-gray-800">
+      <button
+        class="absolute right-2 top-2 rounded-full bg-black/50 p-2 text-white transition-colors hover:bg-black/70"
+        data-dress-close
+        type="button"
+      >
+        ✕
+      </button>
+
+      <img alt="" class="max-h-[70vh] w-auto" data-dress-modal-image />
+
+      <div class="p-5">
+        <h3 class="text-xl font-bold text-gray-800 dark:text-gray-200" data-dress-modal-title></h3>
+        <p class="mt-2 text-gray-600 dark:text-gray-400" data-dress-modal-description></p>
+
+        <div class="mt-4 flex items-center justify-between">
+          <div class="flex flex-wrap gap-2" data-dress-modal-tags></div>
+
+          <div class="flex items-center gap-3">
+            <span class="text-sm text-gray-500 dark:text-gray-400" data-dress-modal-date></span>
+            <button class="flex items-center gap-1 text-rose-600 dark:text-rose-400" type="button">
+              <span>❤️</span>
+              <span data-dress-modal-likes></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script
+    id="dress-data"
+    is:inline
+    set:html={JSON.stringify(galleryPayload)}
+    type="application/json"
+  ></script>
+
+  <Comments />
+</Main>
+
+<script>
+  const setupDressPage = () => {
+    const root = document.querySelector<HTMLElement>('[data-dress-page]')
+    const dataElement = document.getElementById('dress-data')
+
+    if (!root || !dataElement || root.dataset.ready === 'true') {
+      return
+    }
+
+    root.dataset.ready = 'true'
+
+    const items = JSON.parse(dataElement.textContent || '[]') as Array<{
+      date: string
+      description: string
+      id: string
+      imageUrl: string
+      likes: number
+      tags: string[]
+      title: string
+    }>
+    const itemsById = new Map(items.map((item) => [item.id, item]))
+    const tagButtons = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-dress-tag]'))
+    const allTagButton = root.querySelector<HTMLButtonElement>('[data-dress-tag-all]')
+    const viewButtons = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-dress-view]'))
+    const sortSelect = root.querySelector<HTMLSelectElement>('[data-dress-sort]')
+    const grid = document.querySelector<HTMLElement>('[data-dress-grid]')
+    const list = document.querySelector<HTMLElement>('[data-dress-list]')
+    const gridCards = new Map(
+      Array.from(document.querySelectorAll<HTMLElement>('[data-dress-grid-card]')).map((card) => [
+        card.dataset.dressItemId || '',
+        card
+      ])
+    )
+    const listCards = new Map(
+      Array.from(document.querySelectorAll<HTMLElement>('[data-dress-list-card]')).map((card) => [
+        card.dataset.dressItemId || '',
+        card
+      ])
+    )
+    const emptyState = document.querySelector<HTMLElement>('[data-dress-empty]')
+    const modal = document.querySelector<HTMLElement>('[data-dress-modal]')
+    const closeButton = document.querySelector<HTMLButtonElement>('[data-dress-close]')
+    const modalImage = document.querySelector<HTMLImageElement>('[data-dress-modal-image]')
+    const modalTitle = document.querySelector<HTMLElement>('[data-dress-modal-title]')
+    const modalDescription = document.querySelector<HTMLElement>('[data-dress-modal-description]')
+    const modalTags = document.querySelector<HTMLElement>('[data-dress-modal-tags]')
+    const modalDate = document.querySelector<HTMLElement>('[data-dress-modal-date]')
+    const modalLikes = document.querySelector<HTMLElement>('[data-dress-modal-likes]')
+
+    if (
+      !allTagButton ||
+      !sortSelect ||
+      !grid ||
+      !list ||
+      !emptyState ||
+      !modal ||
+      !closeButton ||
+      !modalImage ||
+      !modalTitle ||
+      !modalDescription ||
+      !modalTags ||
+      !modalDate ||
+      !modalLikes
+    ) {
+      return
+    }
+
+    let activeSort = 'newest'
+    let activeTag: string | null = null
+    let activeView = 'grid'
+
+    const tagActiveClasses = ['bg-rose-600', 'text-white']
+    const tagInactiveClasses = [
+      'bg-gray-200',
+      'text-gray-700',
+      'hover:bg-gray-300',
+      'dark:bg-gray-700',
+      'dark:text-gray-300',
+      'dark:hover:bg-gray-600'
+    ]
+    const viewActiveClasses = ['bg-rose-600', 'text-white']
+    const viewInactiveClasses = [
+      'bg-white',
+      'text-gray-700',
+      'hover:bg-gray-100',
+      'dark:bg-gray-800',
+      'dark:text-gray-300',
+      'dark:hover:bg-gray-700'
+    ]
+
+    const setButtonState = (
+      button: HTMLButtonElement,
+      isActive: boolean,
+      activeClasses: string[],
+      inactiveClasses: string[]
+    ) => {
+      activeClasses.forEach((className) => button.classList.toggle(className, isActive))
+      inactiveClasses.forEach((className) => button.classList.toggle(className, !isActive))
+    }
+
+    const closeModal = () => {
+      modal.classList.add('hidden')
+      document.body.classList.remove('overflow-hidden')
+    }
+
+    const openModal = (id: string) => {
+      const item = itemsById.get(id)
+
+      if (!item) {
+        return
+      }
+
+      modalImage.src = item.imageUrl
+      modalImage.alt = item.title
+      modalTitle.textContent = item.title
+      modalDescription.textContent = item.description
+      modalDate.textContent = item.date
+      modalLikes.textContent = String(item.likes)
+      modalTags.replaceChildren(
+        ...item.tags.map((tag) => {
+          const badge = document.createElement('span')
+          badge.className =
+            'rounded-full bg-rose-100 px-2.5 py-0.5 text-xs font-medium text-rose-800 dark:bg-rose-900 dark:text-rose-200'
+          badge.textContent = tag
+          return badge
+        })
+      )
+
+      modal.classList.remove('hidden')
+      document.body.classList.add('overflow-hidden')
+    }
+
+    const getVisibleItems = () =>
+      items
+        .filter((item) => activeTag === null || item.tags.includes(activeTag))
+        .sort((left, right) => {
+          if (activeSort === 'oldest') {
+            return new Date(left.date).getTime() - new Date(right.date).getTime()
+          }
+
+          if (activeSort === 'popular') {
+            return right.likes - left.likes
+          }
+
+          return new Date(right.date).getTime() - new Date(left.date).getTime()
+        })
+
+    const render = () => {
+      const visibleItems = getVisibleItems()
+      const hasResults = visibleItems.length > 0
+
+      setButtonState(allTagButton, activeTag === null, tagActiveClasses, tagInactiveClasses)
+      tagButtons.forEach((button) => {
+        setButtonState(button, button.dataset.dressTag === activeTag, tagActiveClasses, tagInactiveClasses)
+      })
+      viewButtons.forEach((button) => {
+        setButtonState(button, button.dataset.dressView === activeView, viewActiveClasses, viewInactiveClasses)
+      })
+      sortSelect.value = activeSort
+
+      gridCards.forEach((card) => card.classList.add('hidden'))
+      listCards.forEach((card) => card.classList.add('hidden'))
+
+      visibleItems.forEach((item) => {
+        const gridCard = gridCards.get(item.id)
+        const listCard = listCards.get(item.id)
+
+        if (gridCard) {
+          gridCard.classList.remove('hidden')
+          grid.append(gridCard)
+        }
+
+        if (listCard) {
+          listCard.classList.remove('hidden')
+          list.append(listCard)
+        }
+      })
+
+      emptyState.classList.toggle('hidden', hasResults)
+      grid.classList.toggle('hidden', !hasResults || activeView !== 'grid')
+      list.classList.toggle('hidden', !hasResults || activeView !== 'list')
+    }
+
+    allTagButton.addEventListener('click', () => {
+      activeTag = null
+      render()
+    })
+    tagButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const tag = button.dataset.dressTag || null
+        activeTag = activeTag === tag ? null : tag
+        render()
+      })
+    })
+    sortSelect.addEventListener('change', () => {
+      activeSort = sortSelect.value
+      render()
+    })
+    viewButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        activeView = button.dataset.dressView || 'grid'
+        render()
+      })
+    })
+    ;[...gridCards.values(), ...listCards.values()].forEach((card) => {
+      const openCurrentCard = () => {
+        if (card.dataset.dressItemId) {
+          openModal(card.dataset.dressItemId)
+        }
+      }
+
+      card.addEventListener('click', openCurrentCard)
+      card.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+          openCurrentCard()
+        }
+      })
+    })
+    closeButton.addEventListener('click', closeModal)
+    modal.addEventListener('click', (event) => {
+      if (event.target === modal) {
+        closeModal()
+      }
+    })
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        closeModal()
+      }
+    })
+
+    render()
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupDressPage, { once: true })
+  } else {
+    setupDressPage()
+  }
+</script>

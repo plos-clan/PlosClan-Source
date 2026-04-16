@@ -1,0 +1,78 @@
+---
+import Comments from '../components/Comments.astro'
+import Main from '../Main.astro'
+import { PAGES } from '../site-config'
+---
+
+<Main pageTitle={PAGES['/'].title}>
+  <section class="bg-gray-100 p-8 text-gray-700 dark:bg-gray-800 dark:text-gray-300">
+    <h1 class="text-2xl font-bold">Home</h1>
+    <p class="mt-4">这不是首页，这是一个计数器</p>
+
+    <div class="mt-4 flex items-center space-x-2" data-home-counter>
+      <button
+        class="rounded-lg border border-gray-900 px-2 dark:border-gray-500"
+        data-counter-action="decrement"
+        type="button"
+      >
+        -
+      </button>
+
+      <output class="p-2" data-counter-output>Count: 0</output>
+
+      <button
+        class="rounded-lg border border-gray-900 px-2 dark:border-gray-500"
+        data-counter-action="increment"
+        type="button"
+      >
+        +
+      </button>
+    </div>
+  </section>
+
+  <Comments />
+</Main>
+
+<script>
+  const setupHomeCounter = () => {
+    const counter = document.querySelector<HTMLElement>('[data-home-counter]')
+
+    if (!counter || counter.dataset.ready === 'true') {
+      return
+    }
+
+    counter.dataset.ready = 'true'
+
+    const output = counter.querySelector<HTMLOutputElement>('[data-counter-output]')
+    const decrementButton = counter.querySelector<HTMLButtonElement>('[data-counter-action="decrement"]')
+    const incrementButton = counter.querySelector<HTMLButtonElement>('[data-counter-action="increment"]')
+
+    if (!output || !decrementButton || !incrementButton) {
+      return
+    }
+
+    let count = 0
+
+    const render = () => {
+      output.textContent = `Count: ${count}`
+    }
+
+    decrementButton.addEventListener('click', () => {
+      count -= 1
+      render()
+    })
+
+    incrementButton.addEventListener('click', () => {
+      count += 1
+      render()
+    })
+
+    render()
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupHomeCounter, { once: true })
+  } else {
+    setupHomeCounter()
+  }
+</script>

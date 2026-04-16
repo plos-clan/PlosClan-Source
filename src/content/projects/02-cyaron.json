@@ -1,0 +1,11 @@
+{
+  "category": "language",
+  "categoryName": "编程语言",
+  "creators": ["黑手"],
+  "description": "洛谷神题，打榜专用，包含LL(1)解析器和字节码虚拟机",
+  "github": "#",
+  "image": "https://placehold.co/600x400/e9d5ff/1e293b?text=语言编译器",
+  "order": 2,
+  "technologies": ["C", "高性能", "暴力"],
+  "title": "CYaRon"
+}
